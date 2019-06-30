@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fba05c719519b4db251fead2709c54, type: 3}
   m_Name: soundPlaylist
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - name: click
+    clip: {fileID: 8300000, guid: 9d18778d72ce9114e9bd29337e518944, type: 3}
+    clipVariants: []
+    spatialBlend: 0
   max: 32
   audioMixer: {fileID: 0}
   muteOnFocusLost: 1
