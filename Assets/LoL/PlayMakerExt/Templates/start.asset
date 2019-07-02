@@ -334,8 +334,14 @@ MonoBehaviour:
         fsmPropertyParams: []
         layoutOptionParams: []
         fsmStringParams:
-        - useVariable: 0
-          name: 
+        - useVariable: 1
+          name: titleTextRef
+          tooltip: 
+          showInInspector: 1
+          networkSync: 0
+          value: title
+        - useVariable: 1
+          name: titleString
           tooltip: 
           showInInspector: 0
           networkSync: 0
@@ -343,13 +349,7 @@ MonoBehaviour:
         - useVariable: 1
           name: titleString
           tooltip: 
-          showInInspector: 1
-          networkSync: 0
-          value: title
-        - useVariable: 1
-          name: titleString
-          tooltip: 
-          showInInspector: 1
+          showInInspector: 0
           networkSync: 0
           value: title
         fsmObjectParams: []
@@ -383,7 +383,7 @@ MonoBehaviour:
         fsmRectParams: []
         fsmQuaternionParams: []
         stringParams: []
-        byteData: 00000000000000
+        byteData: 01000000000000
         arrayParamSizes: 
         arrayParamTypes: []
         customTypeSizes: 02000000
@@ -664,6 +664,12 @@ MonoBehaviour:
       - useVariable: 1
         name: titleString
         tooltip: 
+        showInInspector: 0
+        networkSync: 0
+        value: title
+      - useVariable: 1
+        name: titleTextRef
+        tooltip: 
         showInInspector: 1
         networkSync: 0
         value: title
@@ -704,7 +710,7 @@ MonoBehaviour:
       enumVariables: []
       categories:
       - 
-      variableCategoryIDs: 0000000000000000000000000000000000000000
+      variableCategoryIDs: 000000000000000000000000000000000000000000000000
     description: Use in start to show loading, and then show title and ready display.
     docUrl: 
     showStateLabel: 0
