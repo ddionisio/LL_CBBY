@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/preInvestigate.unity
     guid: 8b4060adc82415d4984353f60b5f30c9
+  - enabled: 1
+    path: Assets/Scenes/investigationOnsite.unity
+    guid: 8e659e77bad49d948ae19c22f7025ea0
   m_configObjects: {}

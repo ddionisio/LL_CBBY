@@ -12,28 +12,45 @@ public class PlayerNameInput : MonoBehaviour {
     [Header("Signal Invoke")]
     public M8.Signal signalInvokeNext;
 
-    private string mCurName;
-    private string mCurInitial;
-
     void OnEnable() {
         //initialize strings
+        nameInput.text = GameData.instance.playerName;
+        nameInput.interactable = true;
 
-        //determine if confirmButton is enabled
+        nameInput.ActivateInputField();
     }
 
     void Awake() {
-        
+        nameInput.onValueChanged.AddListener(OnNameChanged);
+        nameInput.onEndEdit.AddListener(OnNameSubmit);
+
+        confirmButton.onClick.AddListener(OnConfirmClick);
     }
 
     void OnNameChanged(string nameVal) {
+        initialText.text = GameData.instance.GenerateInitial(nameVal);
 
+        //determine if confirmButton is enabled
+        confirmButton.interactable = !string.IsNullOrEmpty(nameInput.text);
     }
 
     void OnNameSubmit(string nameVal) {
-
+        if(!string.IsNullOrEmpty(nameVal)) {
+            Proceed(nameVal);
+        }
     }
 
     void OnConfirmClick() {
+        if(!string.IsNullOrEmpty(initialText.text)) {
+            Proceed(initialText.text);
+        }
+    }
 
+    private void Proceed(string aName) {
+        GameData.instance.SetPlayerName(aName);
+
+        confirmButton.interactable = false;
+
+        signalInvokeNext.Invoke();
     }
 }

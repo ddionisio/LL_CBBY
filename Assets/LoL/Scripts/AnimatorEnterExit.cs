@@ -12,22 +12,28 @@ public class AnimatorEnterExit : MonoBehaviour {
     public bool isPlaying { get { return animator ? animator.isPlaying : false; } }
 
     public void PlayEnter() {
-        animator.Play(takeEnter);
+        if(animator && !string.IsNullOrEmpty(takeEnter))
+            animator.Play(takeEnter);
     }
 
     public IEnumerator PlayEnterWait() {
-        animator.Play(takeEnter);
-        while(animator.isPlaying)
-            yield return null;
+        if(animator && !string.IsNullOrEmpty(takeEnter)) {
+            animator.Play(takeEnter);
+            while(animator.isPlaying)
+                yield return null;
+        }
     }
 
     public void PlayExit() {
-        animator.Play(takeExit);
+        if(animator && !string.IsNullOrEmpty(takeExit))
+            animator.Play(takeExit);
     }
 
     public IEnumerator PlayExitWait() {
-        animator.Play(takeExit);
-        while(animator.isPlaying)
-            yield return null;
+        if(animator && !string.IsNullOrEmpty(takeExit)) {
+            animator.Play(takeExit);
+            while(animator.isPlaying)
+                yield return null;
+        }
     }
 }

@@ -32,17 +32,12 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
         M8.SceneState.instance.global.SetValueString(sceneVarPlayerName, mCurPlayerName, true);
 
-        GeneratePlayerInitial();
+        mCurPlayerInitial = GenerateInitial(mCurPlayerName);
     }
 
-    private void InitPlayerName() {
-        mCurPlayerName = M8.SceneState.instance.global.GetValueString(sceneVarPlayerName);
-        GeneratePlayerInitial();
-    }
-
-    private void GeneratePlayerInitial() {
-        if(!string.IsNullOrEmpty(mCurPlayerName)) {
-            var words = mCurPlayerName.Split(' ');
+    public string GenerateInitial(string aName) {
+        if(!string.IsNullOrEmpty(aName)) {
+            var words = aName.Split(' ');
             if(words.Length > 1) {
                 var sb = new System.Text.StringBuilder(2);
 
@@ -55,14 +50,17 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
                 if(!string.IsNullOrEmpty(lastWord))
                     sb.Append(lastWord[0]);
 
-                mCurPlayerInitial = sb.ToString().ToUpper();
+                return sb.ToString().ToUpper();
             }
             else if(!string.IsNullOrEmpty(words[0]))
-                mCurPlayerInitial = words[0].Substring(0, 1).ToUpper();
-            else
-                mCurPlayerInitial = "";
+                return words[0].Substring(0, 1).ToUpper();
         }
-        else
-            mCurPlayerInitial = "";
+
+        return "";
+    }
+
+    private void InitPlayerName() {
+        mCurPlayerName = M8.SceneState.instance.global.GetValueString(sceneVarPlayerName);
+        mCurPlayerInitial = GenerateInitial(mCurPlayerName);
     }
 }
