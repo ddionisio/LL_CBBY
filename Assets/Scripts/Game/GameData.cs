@@ -6,6 +6,24 @@ using UnityEngine;
 public class GameData : M8.SingletonScriptableObject<GameData> {
     public const string sceneVarPlayerName = "playerName";
 
+    public class CaptureInfo {
+        public Vector3 forward;
+        public Quaternion rotation;
+        public Vector3 postion;
+        public bool isCaptured;
+
+        public void ApplyTelemetry(Transform t) {
+            forward = t.forward;
+            rotation = t.localRotation;
+            postion = t.position;
+        }
+    }
+
+    [Header("Capture")]
+    public RenderTexture[] captureTextures;
+    public RenderTexture captureScreen;
+    public bool captureScreenIsOn;
+
     public string playerName {
         get {
             if(string.IsNullOrEmpty(mCurPlayerName))
@@ -24,8 +42,35 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         }
     }
 
+    public CaptureInfo[] captureInfos {
+        get {
+            if(mCaptureInfos == null) {
+                mCaptureInfos = new CaptureInfo[captureTextures.Length];
+                for(int i = 0; i < mCaptureInfos.Length; i++)
+                    mCaptureInfos[i] = new CaptureInfo();
+            }
+
+            return mCaptureInfos;
+        }
+    }
+
     private string mCurPlayerName;
     private string mCurPlayerInitial;
+    private CaptureInfo[] mCaptureInfos;
+
+    public void Capture(int index, Camera cam) {
+        if(index >= 0 && index < captureTextures.Length) {
+            var captureInfo = captureInfos[index];
+
+            captureInfo.ApplyTelemetry(cam.transform);
+
+            cam.targetTexture = captureTextures[index];
+            cam.Render();
+            cam.targetTexture = null;
+
+            captureInfo.isCaptured = true;
+        }
+    }
 
     public void SetPlayerName(string aPlayerName) {
         mCurPlayerName = aPlayerName;
