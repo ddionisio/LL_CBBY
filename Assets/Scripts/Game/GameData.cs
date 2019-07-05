@@ -14,7 +14,7 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
         public void ApplyTelemetry(Transform t) {
             forward = t.forward;
-            rotation = t.localRotation;
+            rotation = t.rotation;
             postion = t.position;
         }
     }
@@ -54,9 +54,19 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         }
     }
 
+    public InteractiveMode currentInteractMode { get; private set; }
+
+    public event System.Action interactModeChanged;
+
     private string mCurPlayerName;
     private string mCurPlayerInitial;
     private CaptureInfo[] mCaptureInfos;
+
+    public void SetCurrentInteractMode(InteractiveMode toMode) {
+        currentInteractMode = toMode;
+
+        interactModeChanged?.Invoke();
+    }
 
     public void Capture(int index, Camera cam) {
         if(index >= 0 && index < captureTextures.Length) {
