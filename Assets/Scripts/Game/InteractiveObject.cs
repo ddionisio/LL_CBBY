@@ -17,8 +17,18 @@ public class InteractiveObject : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public string fsmEventClick = "Click";
 
     public bool isActive { get { return mode == GameData.instance.currentInteractMode; } }
+    public bool isLocked {
+        get { return mIsLocked; }
+        set {
+            if(mIsLocked != value) {
+                mIsLocked = value;
+                ApplyActive();
+            }
+        }
+    }
 
     private Collider mColl;
+    private bool mIsLocked;
 
     void OnEnable() {
         ApplyActive();
@@ -41,7 +51,7 @@ public class InteractiveObject : MonoBehaviour, IPointerEnterHandler, IPointerEx
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData) {
-        if(isActive)
+        if(isActive && !mIsLocked)
             SetHighlight(true);
     }
 
@@ -51,23 +61,26 @@ public class InteractiveObject : MonoBehaviour, IPointerEnterHandler, IPointerEx
     }
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData) {
+        if(!isActive || mIsLocked)
+            return;
+
         if(fsm)
             fsm.SendEvent(fsmEventClick);
     }
 
     private void SetHighlight(bool isHighlight) {
         if(highlightControl)
-            highlightControl.SetActive(isHighlight);
+            highlightControl.isActive = isHighlight;
     }
 
     private void ApplyActive() {
         var _isActive = isActive;
 
-        mColl.enabled = _isActive;
+        mColl.enabled = _isActive && !mIsLocked;
 
-        if(activeGO) activeGO.SetActive(_isActive);
+        if(activeGO) activeGO.SetActive(_isActive && !mIsLocked);
 
-        if(!_isActive)
+        if(!_isActive || mIsLocked)
             SetHighlight(false);
 
         /*

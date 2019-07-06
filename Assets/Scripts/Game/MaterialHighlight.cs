@@ -3,72 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MaterialHighlight : MonoBehaviour {
-    public GameObject target;
+    public Renderer[] targets;
 
-    public string varName;
-    public float valActive = 1f;
-    public float valInactive = 0f;
+    public Material material;
 
-    private class Item {
-        public Material[] materials;
-
-        public Item(Renderer r) {
-            materials = r.materials;
-        }
-
-        public void Apply(int varId, float val) {
-            for(int i = 0; i < materials.Length; i++) {
-                var mat = materials[i];
-                if(mat)
-                    mat.SetFloat(varId, val);
-            }
-        }
-
-        public void Deinit() {
-            if(materials != null) {
-                for(int i = 0; i < materials.Length; i++) {
-                    if(materials[i])
-                        DestroyImmediate(materials[i]);
-                }
+    public bool isActive {
+        get { return mIsActive; }
+        set {
+            if(mIsActive != value) {
+                mIsActive = value;
+                ApplyActive();
             }
         }
     }
 
-    private int mVarId;
-    private Item[] mItems;
+    private Material[] mDefaultMats; //corresponds to targets
 
-    public void SetActive(bool aActive) {
-        if(mItems != null) {
-            var val = aActive ? valActive : valInactive;
+    private bool mIsActive;
 
-            for(int i = 0; i < mItems.Length; i++) {
-                var itm = mItems[i];
-                itm.Apply(mVarId, val);
-            }
-        }
-    }
-
-    void OnDestroy() {
-        if(mItems != null) {
-            for(int i = 0; i < mItems.Length; i++) {
-                var itm = mItems[i];
-                itm.Deinit();
-            }
-        }
+    void OnDisable() {
+        mIsActive = false;
+        ApplyActive();
     }
 
     void Awake() {
-        mVarId = Shader.PropertyToID(varName);
+        mDefaultMats = new Material[targets.Length];
+        for(int i = 0; i < targets.Length; i++)
+            mDefaultMats[i] = targets[i].sharedMaterial;
+    }
 
-        var meshRenders = target.GetComponentsInChildren<MeshRenderer>();
-
-        mItems = new Item[meshRenders.Length];
-
-        for(int i = 0; i < mItems.Length; i++) {
-            var r = meshRenders[i];
-
-            var itm = new Item(r);
-            mItems[i] = itm;
+    private void ApplyActive() {
+        for(int i = 0; i < targets.Length; i++) {
+            if(targets[i]) {
+                targets[i].sharedMaterial = mIsActive ? material : mDefaultMats[i];
+            }
         }
     }
 }

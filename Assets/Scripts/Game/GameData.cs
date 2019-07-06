@@ -71,7 +71,16 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     public Texture2D captureScreenTexture { get; private set; }
 
-    public InteractiveMode currentInteractMode { get; private set; }
+    public InteractiveMode currentInteractMode {
+        get { return mCurrentInteractMode; }
+        set {
+            if(mCurrentInteractMode != value) {
+                mCurrentInteractMode = value;
+
+                interactModeChanged?.Invoke();
+            }
+        }
+    }
 
     public event System.Action interactModeChanged;
 
@@ -79,11 +88,7 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     private string mCurPlayerInitial;
     private CaptureInfo[] mCaptureInfos;
 
-    public void SetCurrentInteractMode(InteractiveMode toMode) {
-        currentInteractMode = toMode;
-
-        interactModeChanged?.Invoke();
-    }
+    private InteractiveMode mCurrentInteractMode;
 
     public void Capture(int index, Camera cam) {
         if(index >= 0 && index < captureCount) {
