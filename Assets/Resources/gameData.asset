@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a7ea83d4fe22224ab89a800aedf5600, type: 3}
   m_Name: gameData
   m_EditorClassIdentifier: 
-  captureTextures:
-  - {fileID: 8400000, guid: 199d08bcdd8a31144b50bf2780643df4, type: 2}
-  - {fileID: 8400000, guid: b0cb988a15d0e94469c4c32920bc6396, type: 2}
-  - {fileID: 8400000, guid: 638bfeeb2d6574b479a5f6be2f159d04, type: 2}
-  - {fileID: 8400000, guid: 430c5e33afca1104f9a2583b7bf1519c, type: 2}
+  captureRenderTexture: {fileID: 8400000, guid: 0f156ba2600d84940a3bd28806b8a88e,
+    type: 2}
+  captureCount: 4

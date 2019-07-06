@@ -7,12 +7,28 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     public const string sceneVarPlayerName = "playerName";
 
     public class CaptureInfo {
+        public Texture2D texture;
         public Vector3 forward;
         public Quaternion rotation;
         public Vector3 postion;
-        public bool isCaptured;
 
-        public void ApplyTelemetry(Transform t) {
+        public void Apply(Camera cam, RenderTexture rt) {
+            cam.targetTexture = rt;
+            cam.Render();
+            cam.targetTexture = null;
+
+            if(!texture)
+                texture = new Texture2D(rt.width, rt.height, TextureFormat.RGB24, false);
+
+            var prevRTActive = RenderTexture.active;
+            RenderTexture.active = rt;
+
+            texture.ReadPixels(new Rect(0, 0, texture.width, texture.height), 0, 0);
+            texture.Apply();
+
+            RenderTexture.active = prevRTActive;
+
+            var t = cam.transform;
             forward = t.forward;
             rotation = t.rotation;
             postion = t.position;
@@ -20,9 +36,8 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     }
 
     [Header("Capture")]
-    public RenderTexture[] captureTextures;
-    public RenderTexture captureScreen;
-    public bool captureScreenIsOn;
+    public RenderTexture captureRenderTexture;
+    public int captureCount = 4;
 
     public string playerName {
         get {
@@ -45,7 +60,7 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     public CaptureInfo[] captureInfos {
         get {
             if(mCaptureInfos == null) {
-                mCaptureInfos = new CaptureInfo[captureTextures.Length];
+                mCaptureInfos = new CaptureInfo[captureCount];
                 for(int i = 0; i < mCaptureInfos.Length; i++)
                     mCaptureInfos[i] = new CaptureInfo();
             }
@@ -53,6 +68,8 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
             return mCaptureInfos;
         }
     }
+
+    public Texture2D captureScreenTexture { get; private set; }
 
     public InteractiveMode currentInteractMode { get; private set; }
 
@@ -69,17 +86,27 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     }
 
     public void Capture(int index, Camera cam) {
-        if(index >= 0 && index < captureTextures.Length) {
+        if(index >= 0 && index < captureCount) {
             var captureInfo = captureInfos[index];
 
-            captureInfo.ApplyTelemetry(cam.transform);
-
-            cam.targetTexture = captureTextures[index];
-            cam.Render();
-            cam.targetTexture = null;
-
-            captureInfo.isCaptured = true;
+            captureInfo.Apply(cam, captureRenderTexture);
         }
+    }
+
+    public void CaptureScreen(Camera cam) {
+        cam.targetTexture = captureRenderTexture;
+        cam.Render();
+        cam.targetTexture = null;
+
+        if(!captureScreenTexture)
+            captureScreenTexture = new Texture2D(captureRenderTexture.width, captureRenderTexture.height, TextureFormat.RGB24, false);
+
+        var prevRTActive = RenderTexture.active;
+        RenderTexture.active = captureRenderTexture;
+
+        captureScreenTexture.ReadPixels(new Rect(0, 0, captureScreenTexture.width, captureScreenTexture.height), 0, 0);
+
+        RenderTexture.active = prevRTActive;
     }
 
     public void SetPlayerName(string aPlayerName) {

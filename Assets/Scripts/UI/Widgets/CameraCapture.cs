@@ -27,7 +27,7 @@ public class CameraCapture : MonoBehaviour {
             animator.Play(takeCapture);
 
         mCurCaptureIndex++;
-        if(mCurCaptureIndex == GameData.instance.captureTextures.Length)
+        if(mCurCaptureIndex == GameData.instance.captureCount)
             mCurCaptureIndex = 0;
     }
 
@@ -39,7 +39,7 @@ public class CameraCapture : MonoBehaviour {
 
         for(int i = 0; i < captureInfos.Length; i++) {
             var inf = captureInfos[i];
-            if(!inf.isCaptured) {
+            if(!inf.texture) {
                 availableInd = i;
                 break;
             }
@@ -55,7 +55,7 @@ public class CameraCapture : MonoBehaviour {
 
         for(int i = 0; i < captureInfos.Length; i++) {
             var inf = captureInfos[i];
-            if(!inf.isCaptured) {
+            if(inf.texture) {
                 capturedInd = i;
                 break;
             }
@@ -67,7 +67,7 @@ public class CameraCapture : MonoBehaviour {
     private void ApplyCapture(int index) {
         if(index != -1) {
             captureImage.gameObject.SetActive(true);
-            captureImage.texture = GameData.instance.captureTextures[index];
+            captureImage.texture = GameData.instance.captureInfos[index].texture;
         }
         else {
             captureImage.gameObject.SetActive(false);
