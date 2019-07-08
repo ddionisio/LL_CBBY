@@ -6,6 +6,8 @@ using UnityEngine;
 public class GameData : M8.SingletonScriptableObject<GameData> {
     public const string sceneVarPlayerName = "playerName";
 
+    public const string sceneVarIsMonitorAwake = "monitorAwake";
+
     public class CaptureInfo {
         public Texture2D texture;
         public Vector3 forward;
@@ -70,6 +72,7 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     }
 
     public Texture2D captureScreenTexture { get; private set; }
+    public bool captureScreenIsMonitorAwake { get; private set; }
 
     public InteractiveMode currentInteractMode {
         get { return mCurrentInteractMode; }
@@ -81,6 +84,9 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
             }
         }
     }
+
+    //on-site specific
+    public bool isMonitorAwake { get { return M8.SceneState.instance.global.GetValue(sceneVarIsMonitorAwake) != 0; } }
 
     public event System.Action interactModeChanged;
 
@@ -110,8 +116,11 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         RenderTexture.active = captureRenderTexture;
 
         captureScreenTexture.ReadPixels(new Rect(0, 0, captureScreenTexture.width, captureScreenTexture.height), 0, 0);
+        captureScreenTexture.Apply();
 
         RenderTexture.active = prevRTActive;
+
+        captureScreenIsMonitorAwake = isMonitorAwake;
     }
 
     public void SetPlayerName(string aPlayerName) {

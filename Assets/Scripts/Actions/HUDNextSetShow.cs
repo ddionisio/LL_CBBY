@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions.Game {
     [ActionCategory("Game")]
-    public class HUDNextSetInteract : FsmStateAction {
-        public FsmBool isInteractive;
+    public class HUDNextSetShow : FsmStateAction {
+        public FsmBool isShow;
 
         public override void Reset() {
-            isInteractive = false;
+            isShow = false;
         }
 
         public override void OnEnter() {
-            HUD.instance.SetNextInteractive(isInteractive.Value);
+            HUD.instance.NextSetShow(isShow.Value);
             Finish();
         }
     }

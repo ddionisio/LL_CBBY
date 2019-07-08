@@ -7,8 +7,9 @@ namespace HutongGames.PlayMaker.Actions.Game {
     [ActionCategory("Game")]
     public class CameraChangePosition : FsmStateAction {
         public FsmGameObject target;
-        public FsmFloat delay;
         public FsmBool applyOrientation;
+        public FsmBool isInstant;
+        public FsmFloat delay;        
         public DG.Tweening.Ease easeType;
 
         private Camera mCamera;
@@ -20,8 +21,9 @@ namespace HutongGames.PlayMaker.Actions.Game {
 
         public override void Reset() {
             target = null;
-            delay = 0.3f;
             applyOrientation = true;
+            isInstant = false;
+            delay = 0.3f;            
             easeType = DG.Tweening.Ease.InOutSine;
         }
 
@@ -29,15 +31,30 @@ namespace HutongGames.PlayMaker.Actions.Game {
             if(!mCamera)
                 mCamera = Camera.main;
 
-            if(target.Value) {
-                mEaseFunc = DG.Tweening.Core.Easing.EaseManager.ToEaseFunction(easeType);
-                mCurTime = 0f;
+            if(isInstant.Value) {
+                var targetTrans = target.Value ? target.Value.transform : null;
+                if(targetTrans) {
+                    var camTrans = mCamera.transform;
 
-                mStartPos = mCamera.transform.position;
-                mStartRot = mCamera.transform.rotation;
-            }
-            else
+                    camTrans.position = targetTrans.position;
+
+                    if(applyOrientation.Value)
+                        camTrans.rotation = targetTrans.rotation;
+                }
+
                 Finish();
+            }
+            else {
+                if(target.Value) {
+                    mEaseFunc = DG.Tweening.Core.Easing.EaseManager.ToEaseFunction(easeType);
+                    mCurTime = 0f;
+
+                    mStartPos = mCamera.transform.position;
+                    mStartRot = mCamera.transform.rotation;
+                }
+                else
+                    Finish();
+            }
         }
 
         public override void OnUpdate() {

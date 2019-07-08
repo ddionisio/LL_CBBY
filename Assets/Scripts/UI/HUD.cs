@@ -7,7 +7,14 @@ public class HUD : M8.SingletonBehaviour<HUD> {
     [Header("Display")]
     public bool isVisibleOnEnable;
     public GameObject rootGO;
-    public Button nextButton;
+
+    [Header("Next")]
+    public GameObject nextButtonGO;
+    public AnimatorEnterExit nextEnterExit;
+
+    [Header("Previous")]
+    public GameObject prevButtonGO;
+    public AnimatorEnterExit prevEnterExit;
 
     [Header("Animation")]
     public M8.Animator.Animate animator;
@@ -15,9 +22,6 @@ public class HUD : M8.SingletonBehaviour<HUD> {
     public string takeEnter;
     [M8.Animator.TakeSelector(animatorField = "animator")]
     public string takeExit;
-
-    [Header("Signal Invoke")]
-    public M8.Signal signalInvokeNext;
 
     public bool isVisible { get { return rootGO.activeSelf; } }
     public bool isBusy { get { return mRout != null; } }
@@ -41,22 +45,50 @@ public class HUD : M8.SingletonBehaviour<HUD> {
         }
     }
 
-    public void SetNextInteractive(bool interactive) {
-        nextButton.interactable = interactive;
+    public void NextSetShow(bool show) {
+        if(show)
+            StartCoroutine(DoShow(nextButtonGO, nextEnterExit));
+        else
+            StartCoroutine(DoHide(nextButtonGO, nextEnterExit));
+    }
+
+    public void PrevSetShow(bool show) {
+        if(show)
+            StartCoroutine(DoShow(prevButtonGO, prevEnterExit));
+        else
+            StartCoroutine(DoHide(prevButtonGO, prevEnterExit));
     }
 
     protected override void OnInstanceInit() {
-        nextButton.onClick.AddListener(OnNext);
     }
 
     void OnEnable() {
         rootGO.SetActive(isVisibleOnEnable);
 
-        nextButton.interactable = false;
+        nextButtonGO.SetActive(false);
+        prevButtonGO.SetActive(false);
     }
 
-    void OnNext() {
-        signalInvokeNext.Invoke();
+    IEnumerator DoShow(GameObject go, AnimatorEnterExit animatorEnterExit) {
+        go.SetActive(true);
+
+        if(animatorEnterExit) {
+            while(animatorEnterExit.isPlaying)
+                yield return null;
+
+            yield return animatorEnterExit.PlayEnterWait();
+        }
+    }
+
+    IEnumerator DoHide(GameObject go, AnimatorEnterExit animatorEnterExit) {
+        if(animatorEnterExit) {
+            while(animatorEnterExit.isPlaying)
+                yield return null;
+
+            yield return animatorEnterExit.PlayExitWait();
+        }
+
+        go.SetActive(false);
     }
 
     IEnumerator DoShow() {

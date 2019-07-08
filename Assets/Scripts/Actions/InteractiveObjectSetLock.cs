@@ -6,7 +6,7 @@ namespace HutongGames.PlayMaker.Actions.Game {
     [ActionCategory("Game")]
     public class InteractiveObjectSetLock : ComponentAction<InteractiveObject> {
         [RequiredField]
-        [CheckForComponent(typeof(Rigidbody2D))]
+        [CheckForComponent(typeof(InteractiveObject))]
         public FsmOwnerDefault gameObject;
 
         public FsmBool isLock;
