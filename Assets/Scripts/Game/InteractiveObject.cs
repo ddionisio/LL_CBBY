@@ -30,6 +30,19 @@ public class InteractiveObject : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private Collider mColl;
     private bool mIsLocked;
 
+    /// <summary>
+    /// This will hide highlight-able objects from highlightControl
+    /// </summary>
+    public void HideHighlightDisplays() {
+        if(highlightControl) {
+            for(int i = 0; i < highlightControl.targets.Length; i++) {
+                var target = highlightControl.targets[i];
+                if(target)
+                    target.gameObject.SetActive(false);
+            }
+        }
+    }
+
     void OnEnable() {
         ApplyActive();
 

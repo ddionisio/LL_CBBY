@@ -27,6 +27,8 @@ public class HUD : M8.SingletonBehaviour<HUD> {
     public bool isBusy { get { return mRout != null; } }
 
     private Coroutine mRout;
+    private bool mIsNextShown;
+    private bool mIsPrevShown;
         
     public void Show() {
         Stop();
@@ -46,17 +48,25 @@ public class HUD : M8.SingletonBehaviour<HUD> {
     }
 
     public void NextSetShow(bool show) {
-        if(show)
-            StartCoroutine(DoShow(nextButtonGO, nextEnterExit));
-        else
-            StartCoroutine(DoHide(nextButtonGO, nextEnterExit));
+        if(mIsNextShown != show) {
+            mIsNextShown = show;
+
+            if(show)
+                StartCoroutine(DoShow(nextButtonGO, nextEnterExit));
+            else
+                StartCoroutine(DoHide(nextButtonGO, nextEnterExit));
+        }
     }
 
     public void PrevSetShow(bool show) {
-        if(show)
-            StartCoroutine(DoShow(prevButtonGO, prevEnterExit));
-        else
-            StartCoroutine(DoHide(prevButtonGO, prevEnterExit));
+        if(mIsPrevShown != show) {
+            mIsPrevShown = show;
+
+            if(show)
+                StartCoroutine(DoShow(prevButtonGO, prevEnterExit));
+            else
+                StartCoroutine(DoHide(prevButtonGO, prevEnterExit));
+        }
     }
 
     protected override void OnInstanceInit() {
@@ -67,6 +77,9 @@ public class HUD : M8.SingletonBehaviour<HUD> {
 
         nextButtonGO.SetActive(false);
         prevButtonGO.SetActive(false);
+
+        mIsNextShown = false;
+        mIsPrevShown = false;
     }
 
     IEnumerator DoShow(GameObject go, AnimatorEnterExit animatorEnterExit) {
@@ -81,6 +94,9 @@ public class HUD : M8.SingletonBehaviour<HUD> {
     }
 
     IEnumerator DoHide(GameObject go, AnimatorEnterExit animatorEnterExit) {
+        nextButtonGO.SetActive(false);
+        prevButtonGO.SetActive(false);
+
         if(animatorEnterExit) {
             while(animatorEnterExit.isPlaying)
                 yield return null;
@@ -96,6 +112,13 @@ public class HUD : M8.SingletonBehaviour<HUD> {
 
         if(animator && !string.IsNullOrEmpty(takeEnter))
             yield return animator.PlayWait(takeEnter);
+
+        //show prev and/or next
+        if(mIsNextShown)
+            StartCoroutine(DoShow(nextButtonGO, nextEnterExit));
+
+        if(mIsPrevShown)
+            StartCoroutine(DoShow(prevButtonGO, prevEnterExit));
 
         mRout = null;
     }

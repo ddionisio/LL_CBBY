@@ -7,6 +7,17 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     public const string sceneVarPlayerName = "playerName";
 
     public const string sceneVarIsMonitorAwake = "monitorAwake";
+    public const string sceneVarIsNetworkDisconnect = "networkDisconnect";
+
+    public enum VolatileType {
+        SystemTime,
+        ProcessInfo,
+        NetworkInfo,
+        UserInfo,
+        CacheInfo,
+
+        Count
+    }
 
     public class CaptureInfo {
         public Texture2D texture;
@@ -37,9 +48,17 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         }
     }
 
+    public struct DeviceAcquisition {
+        public AcquisitionItemData item;
+        public int count;
+    }
+
     [Header("Capture")]
     public RenderTexture captureRenderTexture;
     public int captureCount = 4;
+
+    [Header("Volatile Info")]
+    public string[] modalVolatiles; //corresponds to VolatileType
 
     public string playerName {
         get {
@@ -87,6 +106,11 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     //on-site specific
     public bool isMonitorAwake { get { return M8.SceneState.instance.global.GetValue(sceneVarIsMonitorAwake) != 0; } }
+    public bool isNetworkDisconnect { get { return M8.SceneState.instance.global.GetValue(sceneVarIsNetworkDisconnect) != 0; } }
+
+    public List<VolatileType> volatileAcquisitions { get { return mVolatileAcquisitions; } }
+
+    public List<DeviceAcquisition> deviceAcquisitions { get { return mAcquisitions; } }
 
     public event System.Action interactModeChanged;
 
@@ -95,6 +119,43 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     private CaptureInfo[] mCaptureInfos;
 
     private InteractiveMode mCurrentInteractMode;
+
+    private List<VolatileType> mVolatileAcquisitions = new List<VolatileType>((int)VolatileType.Count);
+    private List<DeviceAcquisition> mAcquisitions = new List<DeviceAcquisition>();
+
+    public void AcquireDevice(AcquisitionItemData item) {
+        int ind = -1;
+        for(int i = 0; i < mAcquisitions.Count; i++) {
+            var acquisition = mAcquisitions[i];
+            if(acquisition.item == item) {
+                ind = i;
+                break;
+            }
+        }
+
+        if(ind != -1) {
+            var acquisition = mAcquisitions[ind];
+            acquisition.count++;
+
+            mAcquisitions[ind] = acquisition;
+        }
+        else {
+            mAcquisitions.Add(new DeviceAcquisition { item=item, count=1 });
+        }
+    }
+
+    public void VolatileOpenModal(VolatileType volatileType) {
+        int ind = (int)volatileType;
+        if(ind >= 0 && ind < modalVolatiles.Length && !string.IsNullOrEmpty(modalVolatiles[ind])) {
+
+            M8.ModalManager.main.Open(modalVolatiles[ind]);
+        }
+    }
+
+    public void VolatileAcquire(VolatileType volatileType) {
+        if(!mVolatileAcquisitions.Contains(volatileType))
+            mVolatileAcquisitions.Add(volatileType);
+    }
 
     public void Capture(int index, Camera cam) {
         if(index >= 0 && index < captureCount) {
@@ -155,8 +216,36 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         return "";
     }
 
+    protected override void OnInstanceInit() {
+        mCurPlayerName = "";
+        mCurPlayerInitial = "";
+        mCaptureInfos = null;
+
+        mCurrentInteractMode = null;
+
+        if(captureScreenTexture) {
+            DestroyImmediate(captureScreenTexture);
+            captureScreenTexture = null;
+        }
+
+        mVolatileAcquisitions = new List<VolatileType>((int)VolatileType.Count);
+        mAcquisitions = new List<DeviceAcquisition>();
+    }
+
     private void InitPlayerName() {
         mCurPlayerName = M8.SceneState.instance.global.GetValueString(sceneVarPlayerName);
         mCurPlayerInitial = GenerateInitial(mCurPlayerName);
+    }
+
+    private void ClearCaptures() {
+        if(mCaptureInfos != null) {
+            for(int i = 0; i < mCaptureInfos.Length; i++) {
+                var inf = mCaptureInfos[i];
+                if(inf.texture)
+                    DestroyImmediate(inf.texture);
+            }
+
+            mCaptureInfos = null;
+        }
     }
 }
