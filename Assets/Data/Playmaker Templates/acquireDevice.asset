@@ -237,7 +237,7 @@ MonoBehaviour:
           name: FINISHED
           isSystemEvent: 1
           isGlobal: 0
-        toState: Increment Acquire Counter
+        toState: Is Essential
         linkStyle: 0
         linkConstraint: 0
         colorIndex: 0
@@ -304,8 +304,8 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 245
-        y: 431
+        x: 271
+        y: 454
         width: 180
         height: 48
       isBreakpoint: 0
@@ -395,8 +395,8 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 246
-        y: 353
+        x: 272
+        y: 376
         width: 208
         height: 32
       isBreakpoint: 0
@@ -439,13 +439,13 @@ MonoBehaviour:
           tooltip: 
           showInInspector: 0
           networkSync: 0
-          value: 
+          value: acquisitionCounter
         - useVariable: 1
           name: sceneVarAcquisitionCounter
           tooltip: 
           showInInspector: 0
           networkSync: 0
-          value: 
+          value: acquisitionCounter
         fsmObjectParams: []
         fsmVarParams:
         - variableName: acquisitionCounter
@@ -568,8 +568,8 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 532
-        y: 427
+        x: 558
+        y: 450
         width: 136
         height: 16
       isBreakpoint: 0
@@ -629,8 +629,8 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 525
-        y: 508
+        x: 551
+        y: 531
         width: 100
         height: 16
       isBreakpoint: 0
@@ -676,6 +676,88 @@ MonoBehaviour:
         paramName: []
         paramDataPos: 
         paramByteDataSize: 
+    - name: Is Essential
+      description: 
+      colorIndex: 0
+      position:
+        serializedVersion: 2
+        x: 51
+        y: 494
+        width: 106
+        height: 48
+      isBreakpoint: 0
+      isSequence: 0
+      hideUnused: 0
+      transitions:
+      - fsmEvent:
+          name: TRUE
+          isSystemEvent: 0
+          isGlobal: 0
+        toState: Increment Acquire Counter
+        linkStyle: 0
+        linkConstraint: 0
+        colorIndex: 0
+      - fsmEvent:
+          name: FALSE
+          isSystemEvent: 0
+          isGlobal: 0
+        toState: Finish
+        linkStyle: 0
+        linkConstraint: 0
+        colorIndex: 0
+      actionData:
+        actionNames:
+        - HutongGames.PlayMaker.Actions.BoolTest
+        customNames:
+        - 
+        actionEnabled: 01
+        actionIsOpen: 01
+        actionStartIndex: 00000000
+        actionHashCodes: a4c8bf00
+        unityObjectParams: []
+        fsmGameObjectParams: []
+        fsmOwnerDefaultParams: []
+        animationCurveParams: []
+        functionCallParams: []
+        fsmTemplateControlParams: []
+        fsmEventTargetParams: []
+        fsmPropertyParams: []
+        layoutOptionParams: []
+        fsmStringParams: []
+        fsmObjectParams: []
+        fsmVarParams: []
+        fsmArrayParams: []
+        fsmEnumParams: []
+        fsmFloatParams: []
+        fsmIntParams: []
+        fsmBoolParams:
+        - useVariable: 1
+          name: isEssential
+          tooltip: 
+          showInInspector: 1
+          networkSync: 0
+          value: 0
+        fsmVector2Params: []
+        fsmVector3Params: []
+        fsmColorParams: []
+        fsmRectParams: []
+        fsmQuaternionParams: []
+        stringParams:
+        - TRUE
+        - FALSE
+        byteData: 00
+        arrayParamSizes: 
+        arrayParamTypes: []
+        customTypeSizes: 
+        customTypeNames: []
+        paramDataType: 11000000170000001700000001000000
+        paramName:
+        - boolVariable
+        - isTrue
+        - isFalse
+        - everyFrame
+        paramDataPos: 00000000000000000100000000000000
+        paramByteDataSize: 00000000000000000000000001000000
     events:
     - name: FINISHED
       isSystemEvent: 1
@@ -707,7 +789,13 @@ MonoBehaviour:
         showInInspector: 0
         networkSync: 0
         value: 0
-      boolVariables: []
+      boolVariables:
+      - useVariable: 1
+        name: isEssential
+        tooltip: 
+        showInInspector: 1
+        networkSync: 0
+        value: 0
       stringVariables: []
       vector2Variables: []
       vector3Variables: []
@@ -735,7 +823,7 @@ MonoBehaviour:
         intValue: 0
       categories:
       - 
-      variableCategoryIDs: 000000000000000000000000
+      variableCategoryIDs: 00000000000000000000000000000000
     description: 
     docUrl: 
     showStateLabel: 0

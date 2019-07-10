@@ -145,6 +145,9 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     }
 
     public void VolatileOpenModal(VolatileType volatileType) {
+        if(modalVolatiles == null)
+            return;
+
         int ind = (int)volatileType;
         if(ind >= 0 && ind < modalVolatiles.Length && !string.IsNullOrEmpty(modalVolatiles[ind])) {
 
