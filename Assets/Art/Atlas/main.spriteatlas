@@ -42,10 +42,12 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 6fb6380c4ac5f844bbe805a454607d33, type: 3}
-    totalSpriteSurfaceArea: 9438
+    - {fileID: 102900000, guid: 4e71565a8cb7ce44aa8b5899c90f0326, type: 3}
+    totalSpriteSurfaceArea: 11202
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: f305d3314a36e7f4a90d47938e92e1b0, type: 3}
   - {fileID: 21300000, guid: f4683e31b11d8c249ac19e37611319cd, type: 3}
   - {fileID: 21300000, guid: cfce0ce1b6c72e54f9981e474f39ca7c, type: 3}
   - {fileID: 21300002, guid: bf8c0222be72dfd48a68e5cf2a7ed5c1, type: 3}
@@ -70,6 +72,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 36ce24ec9ae04524289ce0e80bf270be, type: 3}
   - {fileID: 21300000, guid: c5a54a7e88b59e547a8905c1ad93d892, type: 3}
   m_PackedSpriteNamesToIndex:
+  - optionsIcon
   - downArrow
   - edge_shade_left_8x1
   - shadeWhite_bottomLeft
