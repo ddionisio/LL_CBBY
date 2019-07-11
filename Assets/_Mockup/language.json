@@ -6,6 +6,15 @@
   },
   "en": {
     "welcome": "Welcome!",
-    "title": "Cybrary Game"
+    "title": "Cybrary Game",
+    "options": "OPTIONS",
+    "sound": "SOUND",
+    "speech": "SPEECH",
+    "on": "ON",
+    "off": "OFF",
+    "close": "CLOSE",
+    "chain_of_custody": "Chain of Custody",
+    "activity_log": "Activity Log",
+    "help": "Help"
   }
 }

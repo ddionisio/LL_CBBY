@@ -8,6 +8,7 @@ public class AcquireController : MonoBehaviour {
         Mouse,
         Desktop,
         Keyboard,
+        USBStick,
 
         Stapler,
         DeskFan,
@@ -77,7 +78,7 @@ public class AcquireController : MonoBehaviour {
             item.displayGO.SetActive(true);
 
         if(animator && !string.IsNullOrEmpty(takeEnter))
-            yield return animator.PlayWait(takeEnter);
+            animator.Play(takeEnter);
 
         //show modal
         mModalParms[AcquisitionModal.parmItems] = item.acquisitionItems;

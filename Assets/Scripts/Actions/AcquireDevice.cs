@@ -18,13 +18,8 @@ namespace HutongGames.PlayMaker.Actions.Game {
             if(UpdateCache(go)) {
                 cachedComponent.Acquire((AcquireController.Type)acquisitionType.Value);
             }
-            else
-                Finish();
-        }
 
-        public override void OnUpdate() {
-            if(!cachedComponent.isAcquiring)
-                Finish();
+            Finish();
         }
     }
 }

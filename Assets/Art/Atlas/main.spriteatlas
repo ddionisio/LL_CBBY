@@ -43,7 +43,7 @@ SpriteAtlas:
     packables:
     - {fileID: 102900000, guid: 6fb6380c4ac5f844bbe805a454607d33, type: 3}
     - {fileID: 102900000, guid: 4e71565a8cb7ce44aa8b5899c90f0326, type: 3}
-    totalSpriteSurfaceArea: 11202
+    totalSpriteSurfaceArea: 13542
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -56,6 +56,7 @@ SpriteAtlas:
   - {fileID: -4249189435241424335, guid: c05e5e136fe7a084084e48c38b81b054, type: 3}
   - {fileID: 21300000, guid: d985b654a2dd4e54482f774cec3f7b9c, type: 3}
   - {fileID: 21300000, guid: e9c8ee955c09c344aa79e9bb93b94216, type: 3}
+  - {fileID: 21300000, guid: 015fed47bd41e53439fae848bb9f75a1, type: 3}
   - {fileID: 21300000, guid: 326ab6c73d9e81346bb6774298a0d825, type: 3}
   - {fileID: 21300000, guid: 5427e4f7e1cb9704892fb4854f1cf6a9, type: 3}
   - {fileID: 21300010, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
@@ -70,6 +71,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7168da6aea1c4154bbc52d54856e6639, type: 3}
   - {fileID: 21300000, guid: 5952baaa48d611842a22716276cee699, type: 3}
   - {fileID: 21300000, guid: 36ce24ec9ae04524289ce0e80bf270be, type: 3}
+  - {fileID: 21300000, guid: 0f71989d410486545b5262500ea4b77d, type: 3}
   - {fileID: 21300000, guid: c5a54a7e88b59e547a8905c1ad93d892, type: 3}
   m_PackedSpriteNamesToIndex:
   - optionsIcon
@@ -81,6 +83,7 @@ SpriteAtlas:
   - roundRectGlow_bottom
   - circleGlow
   - outline1x1
+  - chainIcon
   - circle32x32
   - dot
   - blank4x4_top
@@ -95,6 +98,7 @@ SpriteAtlas:
   - gradient8x8
   - ringGlow
   - circleGlowTiny
+  - noteIcon
   - edge_shade
   m_Tag: main
   m_IsVariant: 0

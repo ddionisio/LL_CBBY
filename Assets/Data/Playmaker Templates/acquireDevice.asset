@@ -88,7 +88,7 @@ MonoBehaviour:
           name: FINISHED
           isSystemEvent: 1
           isGlobal: 0
-        toState: Hide Display
+        toState: Acquire
         linkStyle: 0
         linkConstraint: 0
         colorIndex: 0
@@ -154,8 +154,8 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 65
-        y: 268
+        x: 237.16406
+        y: 281.39844
         width: 113
         height: 32
       isBreakpoint: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
           name: FINISHED
           isSystemEvent: 1
           isGlobal: 0
-        toState: Acquire
+        toState: Is Essential
         linkStyle: 0
         linkConstraint: 0
         colorIndex: 0
@@ -225,31 +225,41 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 64
-        y: 337
+        x: 65.03125
+        y: 266.89844
         width: 100
-        height: 32
+        height: 48
       isBreakpoint: 0
-      isSequence: 0
+      isSequence: 1
       hideUnused: 0
       transitions:
       - fsmEvent:
-          name: FINISHED
-          isSystemEvent: 1
+          name: TRUE
+          isSystemEvent: 0
           isGlobal: 0
-        toState: Is Essential
+        toState: Hide Display
+        linkStyle: 0
+        linkConstraint: 0
+        colorIndex: 0
+      - fsmEvent:
+          name: FALSE
+          isSystemEvent: 0
+          isGlobal: 0
+        toState: Interact Unlock
         linkStyle: 0
         linkConstraint: 0
         colorIndex: 0
       actionData:
         actionNames:
         - HutongGames.PlayMaker.Actions.Game.AcquireDevice
+        - HutongGames.PlayMaker.Actions.LoL.SignalBooleanWait
         customNames:
         - 
-        actionEnabled: 01
-        actionIsOpen: 01
-        actionStartIndex: 00000000
-        actionHashCodes: 672cde03
+        - 
+        actionEnabled: 0101
+        actionIsOpen: 0101
+        actionStartIndex: 0000000002000000
+        actionHashCodes: 672cde030081be03
         unityObjectParams: []
         fsmGameObjectParams: []
         fsmOwnerDefaultParams:
@@ -268,7 +278,14 @@ MonoBehaviour:
         fsmPropertyParams: []
         layoutOptionParams: []
         fsmStringParams: []
-        fsmObjectParams: []
+        fsmObjectParams:
+        - useVariable: 0
+          name: 
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          typeName: SignalBoolean
+          value: {fileID: 11400000, guid: 7ac9621652ac0934bbbbfdabeb644dfe, type: 2}
         fsmVarParams: []
         fsmArrayParams: []
         fsmEnumParams:
@@ -287,25 +304,30 @@ MonoBehaviour:
         fsmColorParams: []
         fsmRectParams: []
         fsmQuaternionParams: []
-        stringParams: []
+        stringParams:
+        - TRUE
+        - FALSE
         byteData: 
         arrayParamSizes: 
         arrayParamTypes: []
         customTypeSizes: 
         customTypeNames: []
-        paramDataType: 140000002a000000
+        paramDataType: 140000002a000000180000001700000017000000
         paramName:
         - gameObject
         - acquisitionType
-        paramDataPos: 0000000000000000
-        paramByteDataSize: 0000000000000000
+        - signal
+        - trueEvent
+        - falseEvent
+        paramDataPos: 0000000000000000000000000000000001000000
+        paramByteDataSize: 0000000000000000000000000000000000000000
     - name: Check Acquire Counter
       description: 
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 271
-        y: 454
+        x: 557.59375
+        y: 398.32812
         width: 180
         height: 48
       isBreakpoint: 0
@@ -364,7 +386,7 @@ MonoBehaviour:
           tooltip: 
           showInInspector: 0
           networkSync: 0
-          value: 5
+          value: 6
         fsmBoolParams: []
         fsmVector2Params: []
         fsmVector3Params: []
@@ -395,8 +417,8 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 272
-        y: 376
+        x: 566.85156
+        y: 346.10156
         width: 208
         height: 32
       isBreakpoint: 0
@@ -568,8 +590,8 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 558
-        y: 450
+        x: 803.3594
+        y: 408.76562
         width: 136
         height: 16
       isBreakpoint: 0
@@ -629,8 +651,8 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 551
-        y: 531
+        x: 375.7422
+        y: 574.2969
         width: 100
         height: 16
       isBreakpoint: 0
@@ -681,8 +703,8 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 51
-        y: 494
+        x: 382.96094
+        y: 333.1797
         width: 106
         height: 48
       isBreakpoint: 0
@@ -758,6 +780,84 @@ MonoBehaviour:
         - everyFrame
         paramDataPos: 00000000000000000100000000000000
         paramByteDataSize: 00000000000000000000000001000000
+    - name: Interact Unlock
+      description: 
+      colorIndex: 0
+      position:
+        serializedVersion: 2
+        x: 50.5
+        y: 352.0625
+        width: 132
+        height: 32
+      isBreakpoint: 0
+      isSequence: 0
+      hideUnused: 0
+      transitions:
+      - fsmEvent:
+          name: FINISHED
+          isSystemEvent: 1
+          isGlobal: 0
+        toState: Finish
+        linkStyle: 0
+        linkConstraint: 0
+        colorIndex: 0
+      actionData:
+        actionNames:
+        - HutongGames.PlayMaker.Actions.Game.InteractiveObjectSetLock
+        customNames:
+        - 
+        actionEnabled: 01
+        actionIsOpen: 01
+        actionStartIndex: 00000000
+        actionHashCodes: 15264c01
+        unityObjectParams: []
+        fsmGameObjectParams: []
+        fsmOwnerDefaultParams:
+        - ownerOption: 0
+          gameObject:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {fileID: 0}
+        animationCurveParams: []
+        functionCallParams: []
+        fsmTemplateControlParams: []
+        fsmEventTargetParams: []
+        fsmPropertyParams: []
+        layoutOptionParams: []
+        fsmStringParams: []
+        fsmObjectParams: []
+        fsmVarParams: []
+        fsmArrayParams: []
+        fsmEnumParams: []
+        fsmFloatParams: []
+        fsmIntParams: []
+        fsmBoolParams:
+        - useVariable: 0
+          name: 
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 0
+        fsmVector2Params: []
+        fsmVector3Params: []
+        fsmColorParams: []
+        fsmRectParams: []
+        fsmQuaternionParams: []
+        stringParams: []
+        byteData: 
+        arrayParamSizes: 
+        arrayParamTypes: []
+        customTypeSizes: 
+        customTypeNames: []
+        paramDataType: 1400000011000000
+        paramName:
+        - gameObject
+        - isLock
+        paramDataPos: 0000000000000000
+        paramByteDataSize: 0000000000000000
     events:
     - name: FINISHED
       isSystemEvent: 1
