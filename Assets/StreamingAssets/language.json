@@ -15,6 +15,10 @@
     "close": "CLOSE",
     "chain_of_custody": "Chain of Custody",
     "activity_log": "Activity Log",
-    "help": "Help"
+    "help": "Help",
+    "disk_clone": "Disk to Image Clone",
+    "hard_disk_drive": "Hard Disk Drive",
+    "usb_flash_drive": "USB Flash Drive",
+    "progress_cloning_drive": "Cloning {0} to {1}"
   }
 }
