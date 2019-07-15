@@ -19,6 +19,8 @@
     "disk_clone": "Disk to Image Clone",
     "hard_disk_drive": "Hard Disk Drive",
     "usb_flash_drive": "USB Flash Drive",
-    "progress_cloning_drive": "Cloning {0} to {1}"
+    "progress_cloning_drive": "Cloning {0} to {1}",
+    "search_title": "Search: {0}",
+    "search_button": "SEARCH"
   }
 }

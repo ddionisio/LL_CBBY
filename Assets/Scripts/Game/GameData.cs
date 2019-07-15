@@ -112,6 +112,8 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     public List<DeviceAcquisition> deviceAcquisitions { get { return mAcquisitions; } }
 
+    public List<SearchKeywordData> searchKeywords { get { return mSearchKeywords; } }
+
     public event System.Action interactModeChanged;
 
     private string mCurPlayerName;
@@ -122,6 +124,8 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     private List<VolatileType> mVolatileAcquisitions = new List<VolatileType>((int)VolatileType.Count);
     private List<DeviceAcquisition> mAcquisitions = new List<DeviceAcquisition>();
+
+    private List<SearchKeywordData> mSearchKeywords = new List<SearchKeywordData>();
 
     public void AcquireDevice(AcquisitionItemData item) {
         int ind = -1;
