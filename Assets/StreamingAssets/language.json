@@ -21,6 +21,11 @@
     "usb_flash_drive": "USB Flash Drive",
     "progress_cloning_drive": "Cloning {0} to {1}",
     "search_title": "Search: {0}",
-    "search_button": "SEARCH"
+    "search_button": "SEARCH",
+    "search_result_title": "Search Result: {0}",
+    "search_no_match": "No items match your search.",
+    "inspect": "INSPECT",
+    "flag": "FLAG",
+    "unflag": "UNFLAG"
   }
 }
