@@ -26,6 +26,7 @@
     "search_no_match": "No items match your search.",
     "inspect": "INSPECT",
     "flag": "FLAG",
-    "unflag": "UNFLAG"
+    "unflag": "UNFLAG",
+    "file_inspect_title": "File Inspect: {0}"
   }
 }

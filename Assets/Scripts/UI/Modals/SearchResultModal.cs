@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SearchResultModal : M8.ModalController, M8.IModalPush {
+public class SearchResultModal : M8.ModalController, M8.IModalPush, M8.IModalPop {
     public const string parmSearchKeywordData = "data";
+    public const string parmProceedCallback = "proceedCB";
+
+    public delegate void ProceedCallback(int index);
 
     [Header("Data")]
     public ItemSelectFlagWidget itemTemplate;
@@ -15,6 +18,8 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush {
     public string titleTextRef;
     public Transform contentRoot;
     public ScrollRect scroller;
+    public GameObject flagGO;
+    public GameObject unflagGO;
 
     private List<ItemSelectFlagWidget> mItemActive = new List<ItemSelectFlagWidget>();
     private List<ItemSelectFlagWidget> mItemCache = new List<ItemSelectFlagWidget>();
@@ -22,22 +27,39 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush {
     private SearchKeywordData mSearchKeywordData;
     private int mCurIndex;
 
-    public void Flag() {
+    private ProceedCallback mProceedCallback;
 
+    public void Flag() {
+        var results = mSearchKeywordData.results;
+        results[mCurIndex].isFlagged = !results[mCurIndex].isFlagged;
+
+        UpdateSelectedItemFlag();
+
+        //callback
     }
 
     public void Proceed() {
+        var cb = mProceedCallback;
+        if(cb != null)
+            cb(mCurIndex);
+    }
 
+    void M8.IModalPop.Pop() {
+        mProceedCallback = null;
     }
 
     void M8.IModalPush.Push(M8.GenericParams parms) {
         ClearItems();
 
         mCurIndex = 0;
+        mProceedCallback = null;
 
         if(parms != null) {
             if(parms.ContainsKey(parmSearchKeywordData))
                 mSearchKeywordData = parms.GetValue<SearchKeywordData>(parmSearchKeywordData);
+
+            if(parms.ContainsKey(parmProceedCallback))
+                mProceedCallback = parms.GetValue<ProceedCallback>(parmProceedCallback);
         }
 
         if(mSearchKeywordData) {
@@ -50,6 +72,8 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush {
 
                 AllocateItem(i, result);
             }
+
+            UpdateSelectedItemFlag();
         }
                 
         //init scroller
@@ -61,11 +85,15 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush {
     }
 
     void OnItemClick(int index) {
-        mItemActive[mCurIndex].isSelected = false;
+        if(mCurIndex != index) {
+            mItemActive[mCurIndex].isSelected = false;
 
-        mCurIndex = index;
+            mCurIndex = index;
 
-        mItemActive[mCurIndex].isSelected = true;
+            mItemActive[mCurIndex].isSelected = true;
+
+            UpdateSelectedItemFlag();
+        }
     }
 
     private void ClearItems() {
@@ -108,5 +136,16 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush {
         }
 
         return ret;
+    }
+
+    private void UpdateSelectedItemFlag() {
+        var results = mSearchKeywordData.results;
+
+        var isFlagged = results[mCurIndex].isFlagged;
+
+        mItemActive[mCurIndex].isFlagged = isFlagged;
+
+        flagGO.SetActive(!isFlagged);
+        unflagGO.SetActive(isFlagged);
     }
 }

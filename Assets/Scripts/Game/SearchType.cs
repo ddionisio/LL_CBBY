@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum SearchType {
+    None,
+
     File,
-    Email,
     Registry
 }
