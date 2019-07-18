@@ -27,6 +27,8 @@
     "inspect": "INSPECT",
     "flag": "FLAG",
     "unflag": "UNFLAG",
-    "file_inspect_title": "File Inspect: {0}"
+    "file_inspect_title": "File Inspect: {0}",
+    "dataInvestigate_file_inspector": "File Inspector",
+    "files": "Files"
   }
 }

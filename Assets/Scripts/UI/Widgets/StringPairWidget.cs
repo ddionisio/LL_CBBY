@@ -7,4 +7,5 @@ public class StringPairWidget : MonoBehaviour {
     public Text counterText;
     public Text stringTextLeft;
     public Text stringTextRight;
+    public GameObject highlightGO;
 }

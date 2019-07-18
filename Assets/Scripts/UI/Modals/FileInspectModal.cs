@@ -233,7 +233,10 @@ public class FileInspectModal : M8.ModalController, M8.IModalPush {
         itm.itemSelect.transform.SetSiblingIndex(index);
 
         itm.itemSelect.Setup(index);
-        itm.itemSelect.isFlagged = flagData.flagDataIndex == index && flagData.flagData && flagData.flagData.isFlagged;
+
+        bool isFlaggable = flagData.flagDataIndex == index && flagData.flagData;
+
+        itm.itemSelect.isFlagged = isFlaggable && flagData.flagData.isFlagged;
         itm.itemSelect.isSelected = index == mCurIndex;
 
         var stringPairWidget = itm.stringPair;
@@ -263,6 +266,8 @@ public class FileInspectModal : M8.ModalController, M8.IModalPush {
 
         stringPairWidget.stringTextLeft.text = sbHex.ToString();
         stringPairWidget.stringTextRight.text = sbChars.ToString();
+
+        stringPairWidget.highlightGO.SetActive(isFlaggable);
 
         itm.itemSelect.gameObject.SetActive(true);
 
