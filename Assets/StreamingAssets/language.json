@@ -29,6 +29,13 @@
     "unflag": "UNFLAG",
     "file_inspect_title": "File Inspect: {0}",
     "dataInvestigate_file_inspector": "File Inspector",
-    "files": "Files"
+    "files": "Files",
+    "network_log_title": "Network Log Viewer",
+    "network_active_connections": "Active Connections",
+    "network_log_proto": "Proto",
+    "network_log_local_addy": "Local Address",
+    "network_log_foreign_addy": "Foreign Address",
+    "network_log_state": "State",
+    "network_log_pid": "PID"
   }
 }

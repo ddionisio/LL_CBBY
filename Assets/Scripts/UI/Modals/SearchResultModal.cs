@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SearchResultModal : M8.ModalController, M8.IModalPush, M8.IModalPop {
+    public const string parmSearchType = "searchType";
     public const string parmSearchKeywordData = "data";
     public const string parmProceedCallback = "proceedCB";
 
@@ -24,6 +25,7 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush, M8.IModalPop
     private List<ItemSelectFlagWidget> mItemActive = new List<ItemSelectFlagWidget>();
     private List<ItemSelectFlagWidget> mItemCache = new List<ItemSelectFlagWidget>();
 
+    private SearchType mSearchType;
     private SearchKeywordData mSearchKeywordData;
     private int mCurIndex;
 
@@ -50,11 +52,13 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush, M8.IModalPop
 
     void M8.IModalPush.Push(M8.GenericParams parms) {
         ClearItems();
-
-        mCurIndex = 0;
+                
         mProceedCallback = null;
 
         if(parms != null) {
+            if(parms.ContainsKey(parmSearchType))
+                mSearchType = parms.GetValue<SearchType>(parmSearchType);
+
             if(parms.ContainsKey(parmSearchKeywordData))
                 mSearchKeywordData = parms.GetValue<SearchKeywordData>(parmSearchKeywordData);
 
@@ -70,8 +74,12 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush, M8.IModalPop
             for(int i = 0; i < results.Length; i++) {
                 var result = results[i];
 
-                AllocateItem(i, result);
+                if(result.IsSearchMatch(mSearchType))
+                    AllocateItem(i, result);
             }
+
+            if(mItemActive.Count > 0)
+                mCurIndex = mItemActive[0].index;
 
             UpdateSelectedItemFlag();
         }
@@ -86,14 +94,26 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush, M8.IModalPop
 
     void OnItemClick(int index) {
         if(mCurIndex != index) {
-            mItemActive[mCurIndex].isSelected = false;
+            var itm = GetItem(mCurIndex);
+            itm.isSelected = false;
 
             mCurIndex = index;
 
-            mItemActive[mCurIndex].isSelected = true;
+            itm = GetItem(mCurIndex);
+            itm.isSelected = true;
 
             UpdateSelectedItemFlag();
         }
+    }
+
+    private ItemSelectFlagWidget GetItem(int index) {
+        for(int i = 0; i < mItemActive.Count; i++) {
+            var itm = mItemActive[i];
+            if(itm.index == index)
+                return itm;
+        }
+
+        return null;
     }
 
     private void ClearItems() {
@@ -129,7 +149,7 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush, M8.IModalPop
             ret.transform.SetSiblingIndex(index);
 
             ret.Setup(index);
-            ret.isSelected = index == mCurIndex;
+            ret.isSelected = mItemActive.Count == 0;
             ret.isFlagged = dat.isFlagged;
 
             mItemActive.Add(ret);
@@ -143,7 +163,8 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush, M8.IModalPop
 
         var isFlagged = results[mCurIndex].isFlagged;
 
-        mItemActive[mCurIndex].isFlagged = isFlagged;
+        var itm = GetItem(mCurIndex);
+        itm.isFlagged = isFlagged;
 
         flagGO.SetActive(!isFlagged);
         unflagGO.SetActive(isFlagged);

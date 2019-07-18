@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SearchModal : M8.ModalController, M8.IModalPush, M8.IModalPop {
-    public const string parmSearchType = "searchType";
     public const string parmTitle = "title";
     public const string parmCallback = "cb";
 
@@ -17,8 +16,7 @@ public class SearchModal : M8.ModalController, M8.IModalPush, M8.IModalPop {
     [Header("UI")]
     public Text titleText;
     public Dropdown dropdown;
-
-    private SearchType mSearchType;
+        
     private List<SearchKeywordData> mSearchKeywords;
     private CommitCallback mCommitCallback;
 
@@ -44,9 +42,6 @@ public class SearchModal : M8.ModalController, M8.IModalPush, M8.IModalPop {
         mCommitCallback = null;
 
         if(parms != null) {
-            if(parms.ContainsKey(parmSearchType))
-                mSearchType = parms.GetValue<SearchType>(parmSearchType);
-
             if(parms.ContainsKey(parmTitle))
                 titleText.text = string.Format(M8.Localize.Get(titleFormatRef), parms.GetValue<string>(parmTitle));
 
