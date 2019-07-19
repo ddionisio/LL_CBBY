@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f6fc2e0b63ac28408dd9fe6d5cc51ad, type: 3}
-  m_Name: flagged_IP
+  m_Name: flagged_xkdc_exe_registry
   m_EditorClassIdentifier: 
-  key: 240.1.2.3
-  keyword: {fileID: 11400000, guid: b2fc2095eb4d8d4468710828c852216a, type: 2}
+  key: xkdc.exe
+  keyword: {fileID: 11400000, guid: 76acf8491c0c5d94ebe6e417d3627cd3, type: 2}

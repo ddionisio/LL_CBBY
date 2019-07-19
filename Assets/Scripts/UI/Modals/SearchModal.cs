@@ -27,8 +27,10 @@ public class SearchModal : M8.ModalController, M8.IModalPush, M8.IModalPop {
 
         Close();
 
-        if(cb != null)
-            cb(mSearchKeywords[ind]);
+        if(mSearchKeywords.Count > 0) {
+            if(cb != null)
+                cb(mSearchKeywords[ind]);
+        }
     }
 
     void M8.IModalPop.Pop() {
@@ -51,7 +53,7 @@ public class SearchModal : M8.ModalController, M8.IModalPush, M8.IModalPop {
 
         //fill up search items from GameData.searchKeywords
         mSearchKeywords = new List<SearchKeywordData>(GameData.instance.searchKeywords);
-        mSearchKeywords.Sort();
+        //mSearchKeywords.Sort();
 
         var options = new List<string>(mSearchKeywords.Count);
         for(int i = 0; i < mSearchKeywords.Count; i++)

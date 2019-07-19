@@ -42,6 +42,9 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush, M8.IModalPop
 
     public void Proceed() {
         var cb = mProceedCallback;
+
+        Close();
+
         if(cb != null)
             cb(mCurIndex);
     }
@@ -149,6 +152,7 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush, M8.IModalPop
             ret.transform.SetSiblingIndex(index);
 
             ret.Setup(index);
+            ret.text = dat.text;
             ret.isSelected = mItemActive.Count == 0;
             ret.isFlagged = dat.isFlagged;
 

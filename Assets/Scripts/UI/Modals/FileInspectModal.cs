@@ -46,7 +46,7 @@ public class FileInspectModal : M8.ModalController, M8.IModalPush {
 
                                 var str = _dat;
                                 str.PadLeft(sInd, ' ');
-                                str.PadRight(dataLineCharCount - _dat.Length - sInd, ' ');
+                                str.PadRight(dataLineCharCount - str.Length, ' ');
 
                                 mData[i] = str;
                             }
@@ -149,6 +149,8 @@ public class FileInspectModal : M8.ModalController, M8.IModalPush {
         FlagData itm = null;
 
         if(mSearchKeywordData != null) {
+            titleText.text = string.Format(M8.Localize.Get(titleTextRef), mSearchKeywordData.results[mKeywordResultIndex].text);
+
             for(int i = 0; i < items.Length; i++) {
                 var _itm = items[i];
                 if(_itm.sourceKeywordData == mSearchKeywordData && _itm.sourceKeywordResultIndex == mKeywordResultIndex) {
@@ -158,15 +160,21 @@ public class FileInspectModal : M8.ModalController, M8.IModalPush {
                 }
             }
         }
+        else {
+
+        }
 
         if(itm != null) {
             //fill list
             var dats = itm.data;
+            for(int i = 0; i < dats.Length; i++) {
+                AllocateItem(itm, i);
+            }
 
             UpdateSelectFlag();
         }
 
-        scroller.normalizedPosition = Vector2.zero;
+        scroller.normalizedPosition = new Vector2(0f, 1f);
     }
 
     void Awake() {
@@ -175,6 +183,11 @@ public class FileInspectModal : M8.ModalController, M8.IModalPush {
 
     void OnItemClick(int index) {
         if(mCurIndex != index) {
+            mListItemActive[mCurIndex].itemSelect.isSelected = false;
+
+            mCurIndex = index;
+
+            mListItemActive[mCurIndex].itemSelect.isSelected = true;
 
             UpdateSelectFlag();
         }
@@ -187,8 +200,10 @@ public class FileInspectModal : M8.ModalController, M8.IModalPush {
             var flagItm = items[mFlagDataIndex];
             if(flagItm.flagData && mCurIndex == flagItm.flagDataIndex) {
                 flagger.interactable = true;
-
+                                
                 var isFlagged = flagItm.flagData.isFlagged;
+
+                mListItemActive[mCurIndex].itemSelect.isFlagged = isFlagged;
 
                 flagGO.SetActive(!isFlagged);
                 unflagGO.SetActive(isFlagged);
@@ -226,6 +241,9 @@ public class FileInspectModal : M8.ModalController, M8.IModalPush {
         }
         else {
             var newItemSelect = Instantiate(listItemTemplate);
+
+            newItemSelect.clickCallback += OnItemClick;
+
             itm = new ListItemData(newItemSelect);
         }
 
@@ -237,7 +255,7 @@ public class FileInspectModal : M8.ModalController, M8.IModalPush {
         bool isFlaggable = flagData.flagDataIndex == index && flagData.flagData;
 
         itm.itemSelect.isFlagged = isFlaggable && flagData.flagData.isFlagged;
-        itm.itemSelect.isSelected = index == mCurIndex;
+        itm.itemSelect.isSelected = index == mCurIndex;        
 
         var stringPairWidget = itm.stringPair;
 
@@ -261,7 +279,7 @@ public class FileInspectModal : M8.ModalController, M8.IModalPush {
             sbHex.Append(' ');
 
             sbChars.Append(c);
-            sbChars.Append(' ');
+            sbChars.Append("  ");
         }
 
         stringPairWidget.stringTextLeft.text = sbHex.ToString();

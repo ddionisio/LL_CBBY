@@ -16,8 +16,8 @@ MonoBehaviour:
   results:
   - text: winampp.exe
     flagData: {fileID: 11400000, guid: 4477e64f4a33eb240b987c3e182b7eda, type: 2}
-    searchTypes: 0100000002000000
-  - text: winampp.dll
+    searchTypes: 01000000
+  - text: winampp.dat
     flagData: {fileID: 11400000, guid: 2ef6c0fcb747b73448bbdcea531a7738, type: 2}
     searchTypes: 01000000
   - text: music_player.zip
