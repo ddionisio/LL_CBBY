@@ -60,6 +60,9 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     [Header("Volatile Info")]
     public string[] modalVolatiles; //corresponds to VolatileType
 
+    [Header("Lab Inspection Info")]
+    public FlaggedItemData[] malwareChecks; //only check the key from SceneState
+
     public string playerName {
         get {
             if(string.IsNullOrEmpty(mCurPlayerName))
@@ -126,6 +129,34 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     private List<DeviceAcquisition> mAcquisitions = new List<DeviceAcquisition>();
 
     private List<SearchKeywordData> mSearchKeywords = new List<SearchKeywordData>();
+
+    private const string malwareCheckFormat = "malware_checked_{0}";
+
+    public bool IsMalwareChecked(string key) {
+        FlaggedItemData itm = null;
+        for(int i = 0; i < malwareChecks.Length; i++) {
+            if(malwareChecks[i].key == key) {
+                itm = malwareChecks[i];
+                break;
+            }
+        }
+
+        return itm && M8.SceneState.instance.global.GetValue(string.Format(malwareCheckFormat, key)) != 0;
+    }
+
+    public void SetMalwareChecked(string key, bool isChecked) {
+        FlaggedItemData itm = null;
+        for(int i = 0; i < malwareChecks.Length; i++) {
+            if(malwareChecks[i].key == key) {
+                itm = malwareChecks[i];
+                break;
+            }
+        }
+
+        if(itm) {
+            M8.SceneState.instance.global.SetValue(string.Format(malwareCheckFormat, key), isChecked ? 1 : 0, false);
+        }
+    }
 
     public void AcquireDevice(AcquisitionItemData item) {
         int ind = -1;

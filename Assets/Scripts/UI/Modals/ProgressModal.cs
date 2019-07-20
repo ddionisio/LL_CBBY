@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ProgressModal : M8.ModalController, M8.IModalPush, M8.IModalActive {
     public const string parmDelay = "delay";
     public const string parmTitleString = "title";
+    public const string parmCallback = "cb";
 
     public float startDelay = 0.3f;
     public float endDelay = 2f;
@@ -14,6 +15,8 @@ public class ProgressModal : M8.ModalController, M8.IModalPush, M8.IModalActive 
     public Text titleText;
     public Image imageFill;
     public Text percentText;
+
+    private System.Action mCallback;
 
     private float mDelay;
 
@@ -32,6 +35,7 @@ public class ProgressModal : M8.ModalController, M8.IModalPush, M8.IModalActive 
 
     void M8.IModalPush.Push(M8.GenericParams parms) {
         titleText.text = "";
+        mCallback = null;
         mDelay = 0f;
 
         if(parms != null) {
@@ -40,12 +44,16 @@ public class ProgressModal : M8.ModalController, M8.IModalPush, M8.IModalActive 
 
             if(parms.ContainsKey(parmTitleString))
                 titleText.text = parms.GetValue<string>(parmTitleString);
+
+            if(parms.ContainsKey(parmCallback))
+                mCallback = parms.GetValue<System.Action>(parmCallback);
         }
 
         SetProgress(0f);
     }
 
     void OnDisable() {
+        mCallback = null;
         StopRout();
     }
 
@@ -67,7 +75,12 @@ public class ProgressModal : M8.ModalController, M8.IModalPush, M8.IModalActive 
 
         mRout = null;
 
+        var cb = mCallback;
+
         Close();
+
+        if(cb != null)
+            cb();
     }
 
     private void SetProgress(float t) {

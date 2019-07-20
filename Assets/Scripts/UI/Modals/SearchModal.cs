@@ -16,6 +16,7 @@ public class SearchModal : M8.ModalController, M8.IModalPush, M8.IModalPop {
     [Header("UI")]
     public Text titleText;
     public Dropdown dropdown;
+    public Selectable searchSelectible;
         
     private List<SearchKeywordData> mSearchKeywords;
     private CommitCallback mCommitCallback;
@@ -61,6 +62,8 @@ public class SearchModal : M8.ModalController, M8.IModalPush, M8.IModalPop {
 
         dropdown.ClearOptions();
         dropdown.AddOptions(options);
+
+        searchSelectible.interactable = options.Count > 0;
         //
     }
 }

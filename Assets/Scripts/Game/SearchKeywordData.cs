@@ -35,6 +35,15 @@ public class SearchKeywordData : ScriptableObject, IComparer, IComparer<SearchKe
     public string key;    
     public ResultData[] results;
 
+    public bool CheckResultSearch(SearchType s) {
+        for(int i = 0; i < results.Length; i++) {
+            if(results[i].IsSearchMatch(s))
+                return true;
+        }
+
+        return false;
+    }
+
     public int Compare(SearchKeywordData x, SearchKeywordData y) {
         return x.key.CompareTo(y);
     }

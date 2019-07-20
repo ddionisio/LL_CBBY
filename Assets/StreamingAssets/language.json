@@ -22,6 +22,7 @@
     "progress_cloning_drive": "Cloning {0} to {1}",
     "search_title": "Search: {0}",
     "search_title_files": "Search In Files: {0}",
+    "search_title_registry": "Search In Registry: {0}",
     "search_button": "SEARCH",
     "search_result_title": "Search Result: {0}",
     "search_no_match": "No items match your search.",
@@ -42,6 +43,12 @@
     "network_log_state_listening": "LISTENING",
     "network_log_state_established": "ESTABLISHED",
     "network_log_state_close_wait": "CLOSE_WAIT",
-    "network_log_state_time_wait": "TIME_WAIT"
+    "network_log_state_time_wait": "TIME_WAIT",
+    "registry": "Registry",
+    "registry_inspector": "Registry Inspector",
+    "registry_log_title": "REGISTRY: Computer/HKEY_CURRENT_USER/Software/Macrohard/Doors/CurrentVersion/Run",
+    "name": "Name",
+    "type": "Type",
+    "data": "Data"
   }
 }

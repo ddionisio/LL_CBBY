@@ -22,6 +22,9 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush, M8.IModalPop
     public GameObject flagGO;
     public GameObject unflagGO;
 
+    public GameObject flagButtonRootGO;
+    public Selectable proceedSelectible;
+
     private List<ItemSelectFlagWidget> mItemActive = new List<ItemSelectFlagWidget>();
     private List<ItemSelectFlagWidget> mItemCache = new List<ItemSelectFlagWidget>();
 
@@ -81,10 +84,17 @@ public class SearchResultModal : M8.ModalController, M8.IModalPush, M8.IModalPop
                     AllocateItem(i, result);
             }
 
-            if(mItemActive.Count > 0)
+            if(mItemActive.Count > 0) {
                 mCurIndex = mItemActive[0].index;
+                UpdateSelectedItemFlag();
 
-            UpdateSelectedItemFlag();
+                flagButtonRootGO.SetActive(true);
+                proceedSelectible.interactable = true;
+            }
+            else {
+                flagButtonRootGO.SetActive(false);
+                proceedSelectible.interactable = false;
+            }
         }
                 
         //init scroller
