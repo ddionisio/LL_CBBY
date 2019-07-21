@@ -13,6 +13,7 @@
     "on": "ON",
     "off": "OFF",
     "close": "CLOSE",
+    "check": "CHECK",
     "chain_of_custody": "Chain of Custody",
     "activity_log": "Activity Log",
     "help": "Help",
@@ -49,6 +50,12 @@
     "registry_log_title": "REGISTRY: Computer/HKEY_CURRENT_USER/Software/Macrohard/Doors/CurrentVersion/Run",
     "name": "Name",
     "type": "Type",
-    "data": "Data"
+    "data": "Data",
+    "malware_check_title": "Malware Identifier",
+    "malware_not_found": "No malware found.",
+    "malware_trojan_title": "trojan",
+    "malware_trojan_detail": "trojan detail",
+    "malware_rat_title": "rat",
+    "malware_rat_detail": "rat detail"
   }
 }
