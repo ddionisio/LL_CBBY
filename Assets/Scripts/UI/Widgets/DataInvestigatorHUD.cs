@@ -30,6 +30,9 @@ public class DataInvestigatorHUD : MonoBehaviour {
     public string registrySearchTitleRef;
     public string registryModal = "registryLog";
 
+    [Header("Malware Check")]
+    public string malwareCheckModal = "malwareCheck";
+
     private SearchKeywordData mSearchKeyword;
     private int mSearchResultIndex;
 
@@ -48,6 +51,10 @@ public class DataInvestigatorHUD : MonoBehaviour {
 
     public void RegistryInspectClick() {
         StartCoroutine(DoRegistryInspect());
+    }
+
+    public void MalwareCheckClick() {
+        M8.ModalManager.main.Open(malwareCheckModal, null);
     }
 
     IEnumerator DoFileInspect() {

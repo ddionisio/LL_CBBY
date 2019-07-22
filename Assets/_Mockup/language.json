@@ -52,10 +52,13 @@
     "type": "Type",
     "data": "Data",
     "malware_check_title": "Malware Identifier",
+    "malware_found_title": "Malware Found",
     "malware_not_found": "No malware found.",
     "malware_trojan_title": "trojan",
     "malware_trojan_detail": "trojan detail",
     "malware_rat_title": "rat",
-    "malware_rat_detail": "rat detail"
+    "malware_rat_detail": "rat detail",
+    "malware_search_title": "Checking Malware: {0}",
+    "file_format": "File: {0}"
   }
 }

@@ -43,7 +43,7 @@ SpriteAtlas:
     packables:
     - {fileID: 102900000, guid: 6fb6380c4ac5f844bbe805a454607d33, type: 3}
     - {fileID: 102900000, guid: 4e71565a8cb7ce44aa8b5899c90f0326, type: 3}
-    totalSpriteSurfaceArea: 48446
+    totalSpriteSurfaceArea: 52542
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -63,6 +63,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 015fed47bd41e53439fae848bb9f75a1, type: 3}
   - {fileID: 21300000, guid: 326ab6c73d9e81346bb6774298a0d825, type: 3}
   - {fileID: 21300000, guid: 5427e4f7e1cb9704892fb4854f1cf6a9, type: 3}
+  - {fileID: 21300000, guid: 658177287c49bb94fa6331bf55a09099, type: 3}
   - {fileID: 21300000, guid: b5f1f248fc842084cb79fa132167e30b, type: 3}
   - {fileID: 21300000, guid: 9ff5d0f83e3f34845b2f609eeca95d75, type: 3}
   - {fileID: 21300010, guid: 02cb7109eec577d45a27167e2308de23, type: 3}
@@ -100,6 +101,7 @@ SpriteAtlas:
   - chainIcon
   - circle32x32
   - dot
+  - malwareIcon
   - tutorialHandPointDown
   - flagIcon
   - blank4x4_top
