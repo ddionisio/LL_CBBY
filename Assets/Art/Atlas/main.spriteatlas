@@ -43,12 +43,13 @@ SpriteAtlas:
     packables:
     - {fileID: 102900000, guid: 6fb6380c4ac5f844bbe805a454607d33, type: 3}
     - {fileID: 102900000, guid: 4e71565a8cb7ce44aa8b5899c90f0326, type: 3}
-    totalSpriteSurfaceArea: 52542
+    totalSpriteSurfaceArea: 53566
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: f305d3314a36e7f4a90d47938e92e1b0, type: 3}
   - {fileID: 21300000, guid: f4683e31b11d8c249ac19e37611319cd, type: 3}
+  - {fileID: 21300000, guid: 1bb0cc5141a073b4aa089346df8cd0a3, type: 3}
   - {fileID: 21300002, guid: 2c182d91a96c3c949bcbade9ea5d4ba4, type: 3}
   - {fileID: 21300000, guid: 2c182d91a96c3c949bcbade9ea5d4ba4, type: 3}
   - {fileID: 21300000, guid: cfce0ce1b6c72e54f9981e474f39ca7c, type: 3}
@@ -87,6 +88,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - optionsIcon
   - downArrow
+  - triangle
   - tutorialArrow2_bottom
   - tutorialArrow2
   - edge_shade_left_8x1
