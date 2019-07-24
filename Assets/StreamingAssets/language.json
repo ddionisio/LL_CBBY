@@ -57,6 +57,10 @@
     "name": "Name",
     "type": "Type",
     "data": "Data",
+    "status": "Status",
+    "cpu": "CPU",
+    "memory": "Memory",
+    "network": "Network",
     "malware_check_title": "Malware Identifier",
     "malware_found_title": "Malware Found",
     "malware_not_found": "No malware found.",
@@ -80,6 +84,7 @@
     "time_minutes": "Minutes:",
     "time_seconds": "Seconds:",
     "time_milliseconds": "Milliseconds:",
-    "time_ticks": "Ticks:"
+    "time_ticks": "Ticks:",
+    "cache_data_captured": "Cache data copied: command history, clipboard, print spool files."
   }
 }
