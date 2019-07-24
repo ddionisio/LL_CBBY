@@ -12,7 +12,7 @@ public class CameraDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public float cameraDirDelay = 0.3f;
 
     [Header("Display")]
-    public GameObject dragDisplayGO;
+    public GameObject idleActiveGO;
 
     private Camera mCamera;
 
@@ -30,7 +30,7 @@ public class CameraDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
     void OnEnable() {
-        if(dragDisplayGO) dragDisplayGO.SetActive(false);
+        if(idleActiveGO) idleActiveGO.SetActive(true);
     }
 
     void OnDisable() {
@@ -51,10 +51,7 @@ public class CameraDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         mCurPitch = camRot.x > anglePitchLimit ? camRot.x - 360f : camRot.x;
         mCurForward = mCamera.transform.forward;
 
-        if(dragDisplayGO) {
-            dragDisplayGO.SetActive(true);
-            dragDisplayGO.transform.position = eventData.position;
-        }
+        if(idleActiveGO) idleActiveGO.SetActive(false);
                 
         mIsDragging = true;
 
@@ -65,11 +62,7 @@ public class CameraDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     void IDragHandler.OnDrag(PointerEventData eventData) {
         if(!mIsDragging)
             return;
-
-        //update display
-        if(dragDisplayGO)
-            dragDisplayGO.transform.position = eventData.position;
-                
+        
         //update camera forward destination
         var pitchDelta = eventData.delta.y * dragPitchScale;
         var yawDelta = eventData.delta.x * dragYawScale;
@@ -90,8 +83,7 @@ public class CameraDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
     void DragEnd() {
-        if(dragDisplayGO)
-            dragDisplayGO.SetActive(false);
+        if(idleActiveGO) idleActiveGO.SetActive(true);
 
         mIsDragging = false;
     }

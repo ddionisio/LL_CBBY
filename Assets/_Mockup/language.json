@@ -65,6 +65,21 @@
     "malware_rat_title": "rat",
     "malware_rat_detail": "rat detail",
     "malware_search_title": "Checking Malware: {0}",
-    "file_format": "File: {0}"
+    "file_format": "File: {0}",
+    "preInvestigate_report_title": "Preliminary Report",
+    "volatile_data_acquire_title": "Acquiring: {0}",
+    "volatile_data_acquisition": "Volatile Data Acquisition",
+    "volatile_data_SystemTime": "System Time",
+    "volatile_data_ProcessInfo": "Process Info",
+    "volatile_data_NetworkInfo": "Network Info",
+    "volatile_data_UserInfo": "User Info",
+    "volatile_data_CacheInfo": "Cache Info",
+    "time_shell_command": "PS C:\\> (get-date) - (gcim Win32_OperatingSystem).LastBootUpTime",
+    "time_days": "Days:",
+    "time_hours": "Hours:",
+    "time_minutes": "Minutes:",
+    "time_seconds": "Seconds:",
+    "time_milliseconds": "Milliseconds:",
+    "time_ticks": "Ticks:"
   }
 }

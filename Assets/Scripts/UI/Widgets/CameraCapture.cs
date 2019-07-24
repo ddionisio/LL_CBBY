@@ -16,19 +16,16 @@ public class CameraCapture : MonoBehaviour {
 
     private Camera mCamera;
 
+    private Coroutine mCaptureRout;
+
     public void Capture() {
+        if(mCaptureRout != null)
+            return;
+
         if(!mCamera)
             mCamera = Camera.main;
 
-        GameData.instance.Capture(mCurCaptureIndex, mCamera);
-        ApplyCapture(mCurCaptureIndex);
-
-        if(animator && !string.IsNullOrEmpty(takeCapture))
-            animator.Play(takeCapture);
-
-        mCurCaptureIndex++;
-        if(mCurCaptureIndex == GameData.instance.captureCount)
-            mCurCaptureIndex = 0;
+        mCaptureRout = StartCoroutine(DoCapture());
     }
 
     void OnEnable() {
@@ -62,6 +59,25 @@ public class CameraCapture : MonoBehaviour {
         }
 
         ApplyCapture(capturedInd);
+    }
+
+    void OnDisable() {
+        mCaptureRout = null;
+    }
+
+    IEnumerator DoCapture() {
+        GameData.instance.Capture(mCurCaptureIndex, mCamera);
+
+        if(animator && !string.IsNullOrEmpty(takeCapture))
+            yield return animator.PlayWait(takeCapture);
+
+        ApplyCapture(mCurCaptureIndex);
+
+        mCurCaptureIndex++;
+        if(mCurCaptureIndex == GameData.instance.captureCount)
+            mCurCaptureIndex = 0;
+
+        mCaptureRout = null;
     }
 
     private void ApplyCapture(int index) {

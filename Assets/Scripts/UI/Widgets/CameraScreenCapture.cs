@@ -14,17 +14,35 @@ public class CameraScreenCapture : MonoBehaviour {
 
     private Camera mCamera;
 
+    private Coroutine mCaptureRout;
+
     public void Capture() {
+        if(mCaptureRout != null)
+            return;
+
         if(!mCamera)
             mCamera = Camera.main;
 
-        GameData.instance.CaptureScreen(mCamera);
-
-        ApplyCapture();
+        mCaptureRout = StartCoroutine(DoCapture());
     }
 
     void OnEnable() {
         ApplyCapture();
+    }
+
+    void OnDisable() {
+        mCaptureRout = null;
+    }
+
+    IEnumerator DoCapture() {
+        GameData.instance.CaptureScreen(mCamera);
+
+        if(animator && !string.IsNullOrEmpty(takeCapture))
+            yield return animator.PlayWait(takeCapture);
+
+        ApplyCapture();
+
+        mCaptureRout = null;
     }
 
     private void ApplyCapture() {

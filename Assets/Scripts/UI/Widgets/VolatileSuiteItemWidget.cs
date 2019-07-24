@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VolatileSuiteItemWidget : MonoBehaviour {
+    public const float progressDelay = 2f;
+
     [Header("Data")]
     public GameData.VolatileType volatileType;
 
@@ -10,16 +12,34 @@ public class VolatileSuiteItemWidget : MonoBehaviour {
     public GameObject checkedGO;
 
     public void Click() {
-        GameData.instance.VolatileAcquire(volatileType);
+        if(checkedGO.activeSelf) {
+            GameData.instance.VolatileOpenModal(volatileType);
+        }
+        else {
+            GameData.instance.VolatileAcquire(volatileType);
 
-        if(checkedGO)
             checkedGO.SetActive(true);
 
-        GameData.instance.VolatileOpenModal(volatileType);
+            StartCoroutine(DoProgress());
+        }
     }
 
     void OnEnable() {
-        if(checkedGO)
-            checkedGO.SetActive(GameData.instance.volatileAcquisitions.Contains(volatileType));
+        checkedGO.SetActive(GameData.instance.volatileAcquisitions.Contains(volatileType));
+    }
+
+    IEnumerator DoProgress() {
+        var title = string.Format(M8.Localize.Get(GameData.instance.volatileAcquireFormatRef), GameData.instance.GetVolatileTypeText(volatileType));
+
+        var parms = new M8.GenericParams();
+        parms[ProgressModal.parmTitleString] = title;
+        parms[ProgressModal.parmDelay] = progressDelay;
+
+        M8.ModalManager.main.Open(GameData.instance.modalProgress, parms);
+
+        while(M8.ModalManager.main.isBusy || M8.ModalManager.main.IsInStack(GameData.instance.modalProgress))
+            yield return null;
+
+        GameData.instance.VolatileOpenModal(volatileType);
     }
 }

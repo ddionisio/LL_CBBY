@@ -17,6 +17,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9d18778d72ce9114e9bd29337e518944, type: 3}
     clipVariants: []
     spatialBlend: 0
+  - name: cameraSnap
+    clip: {fileID: 8300000, guid: c226a530d5a8a7c4abf4669a7504e979, type: 3}
+    clipVariants: []
+    spatialBlend: 0
   max: 32
   audioMixer: {fileID: 0}
   muteOnFocusLost: 1

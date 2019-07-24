@@ -15,3 +15,11 @@ MonoBehaviour:
   captureRenderTexture: {fileID: 8400000, guid: 0f156ba2600d84940a3bd28806b8a88e,
     type: 2}
   captureCount: 4
+  modalProgress: progress
+  volatileAcquireFormatRef: volatile_data_acquire_title
+  modalVolatiles:
+  - systemTime
+  - processInfo
+  - networkLog
+  - userInfo
+  - cacheInfo

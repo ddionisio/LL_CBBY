@@ -57,7 +57,12 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     public RenderTexture captureRenderTexture;
     public int captureCount = 4;
 
+    [Header("Modals")]
+    public string modalProgress = "progress";
+
     [Header("Volatile Info")]
+    [M8.Localize]
+    public string volatileAcquireFormatRef;
     public string[] modalVolatiles; //corresponds to VolatileType
 
     public string playerName {
@@ -128,6 +133,10 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     private List<SearchKeywordData> mSearchKeywords = new List<SearchKeywordData>();
 
     private const string malwareCheckFormat = "malware_checked_{0}";
+
+    public string GetVolatileTypeText(VolatileType volatileType) {
+        return M8.Localize.Get("volatile_data_" + volatileType.ToString());
+    }
 
     public bool IsMalwareChecked(string key) {
         return M8.SceneState.instance.global.GetValue(string.Format(malwareCheckFormat, key)) != 0;
