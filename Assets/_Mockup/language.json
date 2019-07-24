@@ -16,6 +16,7 @@
     "close": "CLOSE",
     "check": "CHECK",
     "confirm": "CONFIRM",
+    "back": "BACK",
     "chain_of_custody": "Chain of Custody",
     "activity_log": "Activity Log",
     "help": "Help",
@@ -85,6 +86,19 @@
     "time_seconds": "Seconds:",
     "time_milliseconds": "Milliseconds:",
     "time_ticks": "Ticks:",
-    "cache_data_captured": "Cache data copied: command history, clipboard, print spool files."
+    "cache_data_captured": "Cache data copied: command history, clipboard, print spool files.",
+    "acquisition_item_desktop": "Desktop",
+    "acquisition_item_keyboard": "Keyboard",
+    "acquisition_item_monitor": "Monitor",
+    "acquisition_item_monitorCable": "Monitor Cable",
+    "acquisition_item_mouse": "Mouse",
+    "acquisition_item_networkCable": "Network Cable",
+    "acquisition_item_powerCable": "Power Cable",
+    "acquisition_item_usbStick": "USB Flash Drive",
+    "acquisition_item_deskFan": "Desk Fan",
+    "acquisition_item_photo": "Photo",
+    "acquisition_item_stapler": "Stapler",
+    "acquisition_title": "Acquisition",
+    "acquisition_items": "Item(s):"
   }
 }

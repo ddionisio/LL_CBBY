@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VolatileSuiteItemWidget : MonoBehaviour {
-    public const float progressDelay = 2f;
+    public const float progressDelay = 1f;
 
     [Header("Data")]
     public GameData.VolatileType volatileType;

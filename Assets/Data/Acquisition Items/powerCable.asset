@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa6de6c52d65a5458baab8f4b1dc1e2, type: 3}
   m_Name: powerCable
   m_EditorClassIdentifier: 
+  nameTextRef: acquisition_item_powerCable
   isValid: 1

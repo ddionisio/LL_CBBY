@@ -50,7 +50,8 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     public struct DeviceAcquisition {
         public AcquisitionItemData item;
-        public int count;
+        public int index;
+        public int subIndex;
     }
 
     [Header("Capture")]
@@ -128,7 +129,10 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     private InteractiveMode mCurrentInteractMode;
 
     private List<VolatileType> mVolatileAcquisitions = new List<VolatileType>((int)VolatileType.Count);
+
     private List<DeviceAcquisition> mAcquisitions = new List<DeviceAcquisition>();
+    private int mAcquisitionCurIndex = 0;
+    private int mAcquisitionCurSubIndex = 0;
 
     private List<SearchKeywordData> mSearchKeywords = new List<SearchKeywordData>();
 
@@ -147,24 +151,15 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     }
 
     public void AcquireDevice(AcquisitionItemData item) {
-        int ind = -1;
-        for(int i = 0; i < mAcquisitions.Count; i++) {
-            var acquisition = mAcquisitions[i];
-            if(acquisition.item == item) {
-                ind = i;
-                break;
-            }
-        }
 
-        if(ind != -1) {
-            var acquisition = mAcquisitions[ind];
-            acquisition.count++;
+        mAcquisitions.Add(new DeviceAcquisition { item = item, index=mAcquisitionCurIndex, subIndex=mAcquisitionCurSubIndex });
 
-            mAcquisitions[ind] = acquisition;
-        }
-        else {
-            mAcquisitions.Add(new DeviceAcquisition { item=item, count=1 });
-        }
+        mAcquisitionCurSubIndex++;
+    }
+
+    public void AcquireIncrementIndex() {
+        mAcquisitionCurIndex++;
+        mAcquisitionCurSubIndex = 0;
     }
 
     public void VolatileOpenModal(VolatileType volatileType) {
@@ -255,7 +250,10 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         }
 
         mVolatileAcquisitions = new List<VolatileType>((int)VolatileType.Count);
+
         mAcquisitions = new List<DeviceAcquisition>();
+        mAcquisitionCurIndex = 0;
+        mAcquisitionCurSubIndex = 0;
     }
 
     private void InitPlayerName() {

@@ -50,6 +50,8 @@ public class AcquireController : MonoBehaviour {
             for(int i = 0; i < itm.acquisitionItems.Length; i++)
                 GameData.instance.AcquireDevice(itm.acquisitionItems[i]);
 
+            GameData.instance.AcquireIncrementIndex();
+
             mRout = StartCoroutine(DoAcquire(itm));
         }
     }
