@@ -99,6 +99,17 @@
     "acquisition_item_photo": "Photo",
     "acquisition_item_stapler": "Stapler",
     "acquisition_title": "Acquisition",
-    "acquisition_items": "Item(s):"
+    "acquisition_items": "Item(s):",
+    "chain_custody_date": "Date/Time Obtained: {0}",
+    "chain_custody_case_no": "Case Number: {0}",
+    "chain_custody_released_by": "Released By:",
+    "chain_custody_received_by": "Received By:",
+    "chain_custody_purpose": "Purpose of Custody:",
+    "chain_custody_header_item": "Item",
+    "chain_custody_header_desc": "Description",
+    "chain_custody_officer": "Greg Furgenson (Evidence Technician)",
+    "chain_custody_purpose_1": "Transport and secure all evidence to lab for investigation.",
+    "chain_custody_purpose_2": "Clone storage devices (hard disc drive inside desktop, USB flash drive) for investigation.",
+    "chain_custody_purpose_3": "Return and secure storage devices."
   }
 }

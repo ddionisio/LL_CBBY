@@ -52,7 +52,32 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         public AcquisitionItemData item;
         public int index;
         public int subIndex;
+        public string date;
+
+        public string GetLabel() {
+            return string.Format("{0}-{1}-{2:000}-{3:00}", GameData.instance.playerInitial, date, index, subIndex);
+        }
+
+        public string GetName() {
+            return M8.Localize.Get(item.nameTextRef);
+        }
     }
+
+    public struct ActivityLogItem {
+        public System.DateTime time;
+        public string detailTextRef;
+
+        public string GetTimeString() {
+            return time.ToString("g", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+        }
+    }
+
+    [Header("Data")]
+    public int caseNumber = 111007;
+    [M8.Localize]
+    public string departmentNameTextRef;
+    [M8.TagSelector]
+    public string tagActivityPopUp;
 
     [Header("Capture")]
     public RenderTexture captureRenderTexture;
@@ -60,11 +85,15 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     [Header("Modals")]
     public string modalProgress = "progress";
+    public string modalChainOfCustody = "chainOfCustody";
 
     [Header("Volatile Info")]
     [M8.Localize]
     public string volatileAcquireFormatRef;
     public string[] modalVolatiles; //corresponds to VolatileType
+
+    [Header("Signal Invoke")]
+    public SignalActivityLogUpdate signalInvokeActivityLogUpdate;
 
     public string playerName {
         get {
@@ -120,6 +149,8 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     public List<SearchKeywordData> searchKeywords { get { return mSearchKeywords; } }
 
+    public List<ActivityLogItem> activityLogs { get { return mActivityLogs; } }
+
     public event System.Action interactModeChanged;
 
     private string mCurPlayerName;
@@ -136,7 +167,22 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     private List<SearchKeywordData> mSearchKeywords = new List<SearchKeywordData>();
 
+    private List<ActivityLogItem> mActivityLogs = new List<ActivityLogItem>();
+
     private const string malwareCheckFormat = "malware_checked_{0}";
+
+    public ActivityLogPopUpWidget GetActivityLogPopUpWidget() {
+        var go = GameObject.FindGameObjectWithTag(tagActivityPopUp);
+        return go ? go.GetComponent<ActivityLogPopUpWidget>() : null;
+    }
+
+    public void AddActivityLog(string descTextRef) {
+        var newLog = new ActivityLogItem { time = System.DateTime.Now, detailTextRef = descTextRef };
+
+        mActivityLogs.Add(newLog);
+
+        signalInvokeActivityLogUpdate.Invoke(newLog);
+    }
 
     public string GetVolatileTypeText(VolatileType volatileType) {
         return M8.Localize.Get("volatile_data_" + volatileType.ToString());
@@ -151,8 +197,10 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     }
 
     public void AcquireDevice(AcquisitionItemData item) {
+        var dateDat = System.DateTime.Now;
+        var dateStr = dateDat.ToString("ddmmyy", System.Globalization.DateTimeFormatInfo.InvariantInfo);
 
-        mAcquisitions.Add(new DeviceAcquisition { item = item, index=mAcquisitionCurIndex, subIndex=mAcquisitionCurSubIndex });
+        mAcquisitions.Add(new DeviceAcquisition { item=item, index=mAcquisitionCurIndex, subIndex=mAcquisitionCurSubIndex, date=dateStr });
 
         mAcquisitionCurSubIndex++;
     }
@@ -160,6 +208,22 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     public void AcquireIncrementIndex() {
         mAcquisitionCurIndex++;
         mAcquisitionCurSubIndex = 0;
+    }
+
+    public DeviceAcquisition[] GetAcquisitions(AcquisitionItemData[] data) {
+        List<DeviceAcquisition> ret = new List<DeviceAcquisition>();
+
+        for(int i = 0; i < data.Length; i++) {
+            for(int j = 0; j < mAcquisitions.Count; j++) {
+                var acq = mAcquisitions[j];
+                if(acq.item == data[i]) {
+                    ret.Add(acq);
+                    break;
+                }
+            }
+        }
+
+        return ret.ToArray();
     }
 
     public void VolatileOpenModal(VolatileType volatileType) {

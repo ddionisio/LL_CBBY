@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a7ea83d4fe22224ab89a800aedf5600, type: 3}
   m_Name: gameData
   m_EditorClassIdentifier: 
+  caseNumber: 111007
+  departmentNameTextRef: 
+  tagActivityPopUp: ActivityPopUp
   captureRenderTexture: {fileID: 8400000, guid: 0f156ba2600d84940a3bd28806b8a88e,
     type: 2}
   captureCount: 4
   modalProgress: progress
+  modalChainOfCustody: chainOfCustody
   volatileAcquireFormatRef: volatile_data_acquire_title
   modalVolatiles:
   - systemTime
@@ -23,3 +27,5 @@ MonoBehaviour:
   - networkLog
   - userInfo
   - cacheInfo
+  signalInvokeActivityLogUpdate: {fileID: 11400000, guid: a4303c54fd45315439b907b57bfdfc04,
+    type: 2}
