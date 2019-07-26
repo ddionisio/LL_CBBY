@@ -18,6 +18,11 @@ MonoBehaviour:
   captureRenderTexture: {fileID: 8400000, guid: 0f156ba2600d84940a3bd28806b8a88e,
     type: 2}
   captureCount: 4
+  captureTagPOIs: CapturePOIs
+  captureAngleRange:
+    min: 8
+    max: 35
+  captureScoreValue: 1000
   modalProgress: progress
   modalChainOfCustody: chainOfCustody
   volatileAcquireFormatRef: volatile_data_acquire_title

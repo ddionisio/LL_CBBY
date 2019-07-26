@@ -110,6 +110,10 @@
     "chain_custody_officer": "Greg Furgenson (Evidence Technician)",
     "chain_custody_purpose_1": "Transport and secure all evidence to lab for investigation.",
     "chain_custody_purpose_2": "Clone storage devices (hard disc drive inside desktop, USB flash drive) for investigation.",
-    "chain_custody_purpose_3": "Return and secure storage devices."
+    "chain_custody_purpose_3": "Return and secure storage devices.",
+    "photo_album": "Photo Album",
+    "photo_result": "Photo Result",
+    "points": "Points:",
+    "percent": "Percent:"
   }
 }

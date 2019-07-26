@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - ActivityPopUp
+  - CapturePOIs
   layers:
   - Default
   - TransparentFX

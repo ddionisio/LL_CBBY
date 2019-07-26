@@ -82,6 +82,10 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     [Header("Capture")]
     public RenderTexture captureRenderTexture;
     public int captureCount = 4;
+    [M8.TagSelector]
+    public string captureTagPOIs;
+    public M8.RangeFloat captureAngleRange;
+    public float captureScoreValue = 1000f;
 
     [Header("Modals")]
     public string modalProgress = "progress";
@@ -151,6 +155,10 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     public List<ActivityLogItem> activityLogs { get { return mActivityLogs; } }
 
+    //capture
+    public float capturePercent { get; private set; }
+    public int captureScore { get; private set; }
+
     public event System.Action interactModeChanged;
 
     private string mCurPlayerName;
@@ -170,6 +178,64 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     private List<ActivityLogItem> mActivityLogs = new List<ActivityLogItem>();
 
     private const string malwareCheckFormat = "malware_checked_{0}";
+
+    public void UpdateCaptureScore() {
+        var capturePOIsGO = GameObject.FindGameObjectWithTag(captureTagPOIs);
+
+        capturePercent = 0f;
+        captureScore = 0;
+
+        if(capturePOIsGO) {
+            var cam = Camera.main;
+            var camT = cam.transform;
+
+            var capturePOIsRoot = capturePOIsGO.transform;
+
+            int count = capturePOIsRoot.childCount;
+
+            float totalAngle = 0f;
+            float totalPercent = 0f;
+
+            for(int i = 0; i < count; i++) {
+                var t = capturePOIsRoot.GetChild(i);
+
+                var dir = (t.position - camT.position).normalized;
+
+                //get lowest angle from captures
+                float angle = float.MaxValue;
+
+                for(int j = 0; j < captureCount; j++) {
+                    var captureItm = captureInfos[j];
+
+                    var a = captureItm.texture ? Vector3.Angle(captureItm.forward, dir) : float.MaxValue;
+                    if(a < angle)
+                        angle = a;
+                }
+
+                totalAngle += angle;
+
+                float percent;
+
+                if(angle < captureAngleRange.min)
+                    percent = 1f;
+                else if(angle > captureAngleRange.max)
+                    percent = 0f;
+                else
+                    percent = 1f - ((angle - captureAngleRange.min) / captureAngleRange.length);
+
+                totalPercent += percent;
+            }
+
+            capturePercent = totalPercent / count;
+            captureScore = Mathf.RoundToInt(capturePercent * captureScoreValue);
+
+            UpdateLoLScore();
+        }
+    }
+
+    private void UpdateLoLScore() {
+        LoLManager.instance.curScore = captureScore;
+    }
 
     public ActivityLogPopUpWidget GetActivityLogPopUpWidget() {
         var go = GameObject.FindGameObjectWithTag(tagActivityPopUp);
