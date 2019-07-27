@@ -40,5 +40,17 @@ MonoBehaviour:
   - volatiles: 0300000004000000
   volatileScoreValue: 300
   volatileScorePenaltyValue: 150
+  deviceAcquisitionScoreValue: 100
+  deviceAcquisitionScorePenaltyValue: 100
+  digitalReportFlaggedItems:
+  - {fileID: 11400000, guid: d4abdcc22a337704aa343fa8b26703b9, type: 2}
+  - {fileID: 11400000, guid: 2e3f59ca614345644b227ac28dea8c1e, type: 2}
+  - {fileID: 11400000, guid: 29cda01569c7fc64abf574eea7ca6bfd, type: 2}
+  - {fileID: 11400000, guid: d250e604810c3fc4eb4de5efd9d49645, type: 2}
+  - {fileID: 11400000, guid: 25e3e9ab9e71e514bb563f4884238fa6, type: 2}
+  - {fileID: 11400000, guid: 4477e64f4a33eb240b987c3e182b7eda, type: 2}
+  - {fileID: 11400000, guid: e4298826a1ab3c34096026b6766371a4, type: 2}
+  - {fileID: 11400000, guid: 2e5d1d27871c3df4eb35f287c801ec38, type: 2}
+  digitalReportScoreValue: 200
   signalInvokeActivityLogUpdate: {fileID: 11400000, guid: a4303c54fd45315439b907b57bfdfc04,
     type: 2}

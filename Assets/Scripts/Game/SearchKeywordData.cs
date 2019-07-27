@@ -11,16 +11,28 @@ public class SearchKeywordData : ScriptableObject, IComparer, IComparer<SearchKe
         public SearchType[] searchTypes;
 
         public bool isFlagged {
-            get { return flagData ? flagData.isFlagged : mIsFlagged; }
+            get { return flagData ? flagData.isFlagged : M8.SceneState.instance.global.GetValue(sceneVarKey) != 0; }
             set {
                 if(flagData)
                     flagData.isFlagged = value;
-                else
-                    mIsFlagged = value;
+                else {
+                    var _isFlagged = M8.SceneState.instance.global.GetValue(sceneVarKey) != 0;
+                    if(_isFlagged != value)
+                        M8.SceneState.instance.global.SetValue(sceneVarKey, value ? 1 : 0, false);
+                }
             }
         }
 
-        private bool mIsFlagged;
+        private string sceneVarKey {
+            get {
+                if(string.IsNullOrEmpty(mSceneVarKey))
+                    mSceneVarKey = "keyword_" + text;
+
+                return mSceneVarKey;
+            }
+        }
+
+        private string mSceneVarKey;
 
         public bool IsSearchMatch(SearchType searchType) {
             for(int i = 0; i < searchTypes.Length; i++) {

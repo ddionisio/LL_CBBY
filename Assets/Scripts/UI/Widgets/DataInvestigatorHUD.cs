@@ -33,6 +33,9 @@ public class DataInvestigatorHUD : MonoBehaviour {
     [Header("Malware Check")]
     public string malwareCheckModal = "malwareCheck";
 
+    [Header("Report")]
+    public string reportModal = "digitalInvestigationReport";
+
     private SearchKeywordData mSearchKeyword;
     private int mSearchResultIndex;
 
@@ -55,6 +58,10 @@ public class DataInvestigatorHUD : MonoBehaviour {
 
     public void MalwareCheckClick() {
         M8.ModalManager.main.Open(malwareCheckModal, null);
+    }
+
+    public void ReportClick() {
+        M8.ModalManager.main.Open(reportModal, null);
     }
 
     IEnumerator DoFileInspect() {

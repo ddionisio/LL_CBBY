@@ -17,6 +17,8 @@
     "check": "CHECK",
     "confirm": "CONFIRM",
     "back": "BACK",
+    "proceed": "PROCEED",
+    "cancel": "CANCEL",
     "chain_of_custody": "Chain of Custody",
     "activity_log": "Activity Log",
     "help": "Help",
@@ -124,6 +126,10 @@
     "volatile_gather_result_order": "Recommended Order",
     "volatile_gather_result_player_order": "Your Order",
     "device_gather_result": "Device Acquisition Result",
-    "digital_investigation_suite": "Digital Investigation Suite"
+    "digital_investigation_suite": "Digital Investigation Suite",
+    "digital_investigation_report": "Digital Investigation Report",
+    "digital_investigation_req_message": "You need to flag at least three items from the investigation to proceed.",
+    "report": "Report",
+    "digital_investigation_report_confirm": "Do you want to finish the report and proceed?"
   }
 }

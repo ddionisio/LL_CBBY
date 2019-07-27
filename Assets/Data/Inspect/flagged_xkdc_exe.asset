@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: xkdc.exe
   keyword: {fileID: 11400000, guid: 76acf8491c0c5d94ebe6e417d3627cd3, type: 2}
+  malwareData: {fileID: 11400000, guid: 6fde33facc9e94240af68afb9d1ac5d5, type: 2}

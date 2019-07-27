@@ -120,6 +120,10 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     public int deviceAcquisitionScoreValue = 100;
     public int deviceAcquisitionScorePenaltyValue = 100;
 
+    [Header("Digital Investigation")]
+    public FlaggedItemData[] digitalReportFlaggedItems;
+    public int digitalReportScoreValue = 200;
+
     [Header("Signal Invoke")]
     public SignalActivityLogUpdate signalInvokeActivityLogUpdate;
 
@@ -192,6 +196,9 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     //device acquisition
     public int deviceAcquisitionScore { get; private set; }
 
+    //digital investigation
+    public int digitalReportScore { get; private set; }
+
     public event System.Action interactModeChanged;
 
     private string mCurPlayerName;
@@ -211,6 +218,22 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     private List<ActivityLogItem> mActivityLogs = new List<ActivityLogItem>();
 
     private const string malwareCheckFormat = "malware_checked_{0}";
+
+    public void UpdateDigitalReportScore() {
+        digitalReportScore = 0;
+
+        for(int i = 0; i < digitalReportFlaggedItems.Length; i++) {
+            var itm = digitalReportFlaggedItems[i];
+            if(itm.isFlagged) {
+                digitalReportScore += digitalReportScoreValue;
+
+                if(itm.malwareData && IsMalwareChecked(itm.key))
+                    digitalReportScore += digitalReportScoreValue;
+            }
+        }
+
+        UpdateLoLScore();
+    }
 
     public void UpdateDeviceAcquisitionScore() {
         deviceAcquisitionScore = 0;
@@ -307,7 +330,7 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     }
 
     private void UpdateLoLScore() {
-        LoLManager.instance.curScore = captureScore + pcVerifyScore + volatileScore + deviceAcquisitionScore;
+        LoLManager.instance.curScore = captureScore + pcVerifyScore + volatileScore + deviceAcquisitionScore + digitalReportScore;
     }
 
     public ActivityLogPopUpWidget GetActivityLogPopUpWidget() {
