@@ -114,6 +114,16 @@
     "photo_album": "Photo Album",
     "photo_result": "Photo Result",
     "points": "Points:",
-    "percent": "Percent:"
+    "points_penalty": "Points/Penalty",
+    "percent": "Percent:",
+    "pc_verify_result": "PC Verify Result",
+    "pc_verify_check_network": "Network Cable Unplugged",
+    "pc_verify_check_power": "Check PC Power Status",
+    "pc_verify_capture_screen": "Monitor Active Screen Pictured",
+    "volatile_gather_result": "Volatile Data Acquisition Result",
+    "volatile_gather_result_order": "Recommended Order",
+    "volatile_gather_result_player_order": "Your Order",
+    "device_gather_result": "Device Acquisition Result",
+    "digital_investigation_suite": "Digital Investigation Suite"
   }
 }

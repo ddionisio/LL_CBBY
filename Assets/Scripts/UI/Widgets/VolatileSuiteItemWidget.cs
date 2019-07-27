@@ -25,7 +25,7 @@ public class VolatileSuiteItemWidget : MonoBehaviour {
     }
 
     void OnEnable() {
-        checkedGO.SetActive(GameData.instance.volatileAcquisitions.Contains(volatileType));
+        checkedGO.SetActive(GameData.instance.VolatileContains(volatileType));
     }
 
     IEnumerator DoProgress() {

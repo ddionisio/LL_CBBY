@@ -20,9 +20,10 @@ MonoBehaviour:
   captureCount: 4
   captureTagPOIs: CapturePOIs
   captureAngleRange:
-    min: 8
+    min: 10
     max: 35
   captureScoreValue: 1000
+  pcVerifyScoreValue: 500
   modalProgress: progress
   modalChainOfCustody: chainOfCustody
   volatileAcquireFormatRef: volatile_data_acquire_title
@@ -32,5 +33,12 @@ MonoBehaviour:
   - networkLog
   - userInfo
   - cacheInfo
+  volatileOrder:
+  - volatiles: 00000000
+  - volatiles: 01000000
+  - volatiles: 02000000
+  - volatiles: 0300000004000000
+  volatileScoreValue: 300
+  volatileScorePenaltyValue: 150
   signalInvokeActivityLogUpdate: {fileID: 11400000, guid: a4303c54fd45315439b907b57bfdfc04,
     type: 2}

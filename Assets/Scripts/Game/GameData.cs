@@ -55,7 +55,7 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         public string date;
 
         public string GetLabel() {
-            return string.Format("{0}-{1}-{2:000}-{3:00}", GameData.instance.playerInitial, date, index, subIndex);
+            return string.Format("{0}-{1}-{2:000}-{3:00}", GameData.instance.playerInitial, date, index + 1, subIndex + 1);
         }
 
         public string GetName() {
@@ -72,6 +72,20 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         }
     }
 
+    [System.Serializable]
+    public class VolatileOrderItem {
+        public VolatileType[] volatiles;
+
+        public bool Contains(VolatileType v) {
+            return System.Array.IndexOf(volatiles, v) != -1;
+        }
+    }
+
+    public struct VolatileItem {
+        public VolatileType type;
+        public int score;
+    }
+
     [Header("Data")]
     public int caseNumber = 111007;
     [M8.Localize]
@@ -85,7 +99,10 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     [M8.TagSelector]
     public string captureTagPOIs;
     public M8.RangeFloat captureAngleRange;
-    public float captureScoreValue = 1000f;
+    public int captureScoreValue = 1000;
+
+    [Header("PC Verify")]
+    public int pcVerifyScoreValue = 500;
 
     [Header("Modals")]
     public string modalProgress = "progress";
@@ -95,6 +112,13 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     [M8.Localize]
     public string volatileAcquireFormatRef;
     public string[] modalVolatiles; //corresponds to VolatileType
+    public VolatileOrderItem[] volatileOrder; //most to least
+    public int volatileScoreValue = 300;
+    public int volatileScorePenaltyValue = 150;
+
+    [Header("Device Acquisition")]
+    public int deviceAcquisitionScoreValue = 100;
+    public int deviceAcquisitionScorePenaltyValue = 100;
 
     [Header("Signal Invoke")]
     public SignalActivityLogUpdate signalInvokeActivityLogUpdate;
@@ -147,7 +171,7 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     public bool isMonitorAwake { get { return M8.SceneState.instance.global.GetValue(sceneVarIsMonitorAwake) != 0; } }
     public bool isNetworkDisconnect { get { return M8.SceneState.instance.global.GetValue(sceneVarIsNetworkDisconnect) != 0; } }
 
-    public List<VolatileType> volatileAcquisitions { get { return mVolatileAcquisitions; } }
+    public List<VolatileItem> volatileAcquisitions { get { return mVolatileAcquisitions; } }
 
     public List<DeviceAcquisition> deviceAcquisitions { get { return mAcquisitions; } }
 
@@ -159,6 +183,15 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     public float capturePercent { get; private set; }
     public int captureScore { get; private set; }
 
+    //pc verify
+    public int pcVerifyScore { get; private set; }
+
+    //volatile
+    public int volatileScore { get; private set; }
+
+    //device acquisition
+    public int deviceAcquisitionScore { get; private set; }
+
     public event System.Action interactModeChanged;
 
     private string mCurPlayerName;
@@ -167,7 +200,7 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     private InteractiveMode mCurrentInteractMode;
 
-    private List<VolatileType> mVolatileAcquisitions = new List<VolatileType>((int)VolatileType.Count);
+    private List<VolatileItem> mVolatileAcquisitions = new List<VolatileItem>((int)VolatileType.Count);
 
     private List<DeviceAcquisition> mAcquisitions = new List<DeviceAcquisition>();
     private int mAcquisitionCurIndex = 0;
@@ -178,6 +211,46 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     private List<ActivityLogItem> mActivityLogs = new List<ActivityLogItem>();
 
     private const string malwareCheckFormat = "malware_checked_{0}";
+
+    public void UpdateDeviceAcquisitionScore() {
+        deviceAcquisitionScore = 0;
+
+        for(int i = 0; i < mAcquisitions.Count; i++) {
+            var itm = mAcquisitions[i];
+
+            if(itm.item.isValid)
+                deviceAcquisitionScore += deviceAcquisitionScoreValue;
+            else
+                deviceAcquisitionScore -= deviceAcquisitionScorePenaltyValue;
+        }
+
+        if(deviceAcquisitionScore < 0)
+            deviceAcquisitionScore = 0;
+
+        UpdateLoLScore();
+    }
+
+    public void UpdateVolatileScore() {
+        volatileScore = 0;
+
+        for(int i = 0; i < mVolatileAcquisitions.Count; i++)
+            volatileScore += mVolatileAcquisitions[i].score;
+
+        UpdateLoLScore();
+    }
+
+    public void UpdatePCVerifyScore() {
+        pcVerifyScore = 0;
+
+        if(isNetworkDisconnect)
+            pcVerifyScore += pcVerifyScoreValue;
+        if(isMonitorAwake)
+            pcVerifyScore += pcVerifyScoreValue;
+        if(captureScreenTexture && captureScreenIsMonitorAwake)
+            pcVerifyScore += pcVerifyScoreValue;
+
+        UpdateLoLScore();
+    }
 
     public void UpdateCaptureScore() {
         var capturePOIsGO = GameObject.FindGameObjectWithTag(captureTagPOIs);
@@ -234,7 +307,7 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     }
 
     private void UpdateLoLScore() {
-        LoLManager.instance.curScore = captureScore;
+        LoLManager.instance.curScore = captureScore + pcVerifyScore + volatileScore + deviceAcquisitionScore;
     }
 
     public ActivityLogPopUpWidget GetActivityLogPopUpWidget() {
@@ -264,7 +337,7 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     public void AcquireDevice(AcquisitionItemData item) {
         var dateDat = System.DateTime.Now;
-        var dateStr = dateDat.ToString("ddmmyy", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+        var dateStr = dateDat.ToString("dd-MM-yy", System.Globalization.DateTimeFormatInfo.InvariantInfo);
 
         mAcquisitions.Add(new DeviceAcquisition { item=item, index=mAcquisitionCurIndex, subIndex=mAcquisitionCurSubIndex, date=dateStr });
 
@@ -304,8 +377,38 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
     }
 
     public void VolatileAcquire(VolatileType volatileType) {
-        if(!mVolatileAcquisitions.Contains(volatileType))
-            mVolatileAcquisitions.Add(volatileType);
+        if(!VolatileContains(volatileType)) {
+            //generate score
+            int score = 0;
+
+            int orderInd = -1;
+            for(int i = 0; i < volatileOrder.Length; i++) {
+                if(volatileOrder[i].Contains(volatileType)) {
+                    orderInd = i;
+                    break;
+                }
+            }
+
+            if(orderInd != -1) {
+                //get difference and determine score with penalty
+                int ind = Mathf.Clamp(mVolatileAcquisitions.Count, 0, volatileOrder.Length - 1);
+                int diff = Mathf.Abs(orderInd - ind);
+
+                score = volatileScoreValue - (diff * volatileScorePenaltyValue);
+            }
+
+            //add
+            mVolatileAcquisitions.Add(new VolatileItem { type=volatileType, score=score });
+        }
+    }
+
+    public bool VolatileContains(VolatileType type) {
+        for(int i = 0; i < mVolatileAcquisitions.Count; i++) {
+            if(mVolatileAcquisitions[i].type == type)
+                return true;
+        }
+
+        return false;
     }
 
     public void Capture(int index, Camera cam) {
@@ -379,7 +482,7 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
             captureScreenTexture = null;
         }
 
-        mVolatileAcquisitions = new List<VolatileType>((int)VolatileType.Count);
+        mVolatileAcquisitions = new List<VolatileItem>((int)VolatileType.Count);
 
         mAcquisitions = new List<DeviceAcquisition>();
         mAcquisitionCurIndex = 0;

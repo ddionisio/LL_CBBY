@@ -43,7 +43,7 @@ SpriteAtlas:
     packables:
     - {fileID: 102900000, guid: 6fb6380c4ac5f844bbe805a454607d33, type: 3}
     - {fileID: 102900000, guid: 4e71565a8cb7ce44aa8b5899c90f0326, type: 3}
-    totalSpriteSurfaceArea: 78782
+    totalSpriteSurfaceArea: 79288
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -87,6 +87,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5952baaa48d611842a22716276cee699, type: 3}
   - {fileID: 21300000, guid: 950eee4b5c2211c40af518191d8713f3, type: 3}
   - {fileID: 21300000, guid: 1e20707bc3fdc05468dd9018413d4f1e, type: 3}
+  - {fileID: 21300000, guid: e83646acd476410418e0bf338e337799, type: 3}
   - {fileID: 21300000, guid: 36ce24ec9ae04524289ce0e80bf270be, type: 3}
   - {fileID: 21300000, guid: 0f71989d410486545b5262500ea4b77d, type: 3}
   - {fileID: 21300000, guid: c5a54a7e88b59e547a8905c1ad93d892, type: 3}
@@ -132,6 +133,7 @@ SpriteAtlas:
   - ringGlow
   - processIcon
   - aiPortrait
+  - wrongIcon
   - circleGlowTiny
   - noteIcon
   - edge_shade
