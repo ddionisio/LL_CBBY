@@ -10,6 +10,7 @@ public class HUD : M8.SingletonBehaviour<HUD> {
 
     [Header("Next")]
     public GameObject nextButtonGO;
+    public GameObject nextIndicatorGO;
     public AnimatorEnterExit nextEnterExit;
 
     [Header("Previous")]
@@ -47,12 +48,12 @@ public class HUD : M8.SingletonBehaviour<HUD> {
         }
     }
 
-    public void NextSetShow(bool show) {
+    public void NextSetShow(bool show, bool showIndicator) {
         if(mIsNextShown != show) {
             mIsNextShown = show;
 
             if(show)
-                StartCoroutine(DoShow(nextButtonGO, nextEnterExit));
+                StartCoroutine(DoShow(nextButtonGO, showIndicator ? nextIndicatorGO : null, nextEnterExit));
             else
                 StartCoroutine(DoHide(nextButtonGO, nextEnterExit));
         }
@@ -63,7 +64,7 @@ public class HUD : M8.SingletonBehaviour<HUD> {
             mIsPrevShown = show;
 
             if(show)
-                StartCoroutine(DoShow(prevButtonGO, prevEnterExit));
+                StartCoroutine(DoShow(prevButtonGO, null, prevEnterExit));
             else
                 StartCoroutine(DoHide(prevButtonGO, prevEnterExit));
         }
@@ -77,12 +78,13 @@ public class HUD : M8.SingletonBehaviour<HUD> {
 
         nextButtonGO.SetActive(false);
         prevButtonGO.SetActive(false);
+        nextIndicatorGO.SetActive(false);
 
         mIsNextShown = false;
         mIsPrevShown = false;
     }
 
-    IEnumerator DoShow(GameObject go, AnimatorEnterExit animatorEnterExit) {
+    IEnumerator DoShow(GameObject go, GameObject postActiveGO, AnimatorEnterExit animatorEnterExit) {
         go.SetActive(true);
 
         if(animatorEnterExit) {
@@ -90,13 +92,13 @@ public class HUD : M8.SingletonBehaviour<HUD> {
                 yield return null;
 
             yield return animatorEnterExit.PlayEnterWait();
+
+            if(postActiveGO)
+                postActiveGO.SetActive(true);
         }
     }
 
     IEnumerator DoHide(GameObject go, AnimatorEnterExit animatorEnterExit) {
-        nextButtonGO.SetActive(false);
-        prevButtonGO.SetActive(false);
-
         if(animatorEnterExit) {
             while(animatorEnterExit.isPlaying)
                 yield return null;
@@ -108,6 +110,11 @@ public class HUD : M8.SingletonBehaviour<HUD> {
     }
 
     IEnumerator DoShow() {
+        nextButtonGO.SetActive(false);
+        nextIndicatorGO.SetActive(false);
+
+        prevButtonGO.SetActive(false);
+
         rootGO.SetActive(true);
 
         if(animator && !string.IsNullOrEmpty(takeEnter))
@@ -115,10 +122,10 @@ public class HUD : M8.SingletonBehaviour<HUD> {
 
         //show prev and/or next
         if(mIsNextShown)
-            StartCoroutine(DoShow(nextButtonGO, nextEnterExit));
+            StartCoroutine(DoShow(nextButtonGO, null, nextEnterExit));
 
         if(mIsPrevShown)
-            StartCoroutine(DoShow(prevButtonGO, prevEnterExit));
+            StartCoroutine(DoShow(prevButtonGO, null, prevEnterExit));
 
         mRout = null;
     }

@@ -18,6 +18,8 @@ namespace HutongGames.PlayMaker.Actions.Game {
         }
 
         public override void OnEnter() {
+            GameData.instance.AddActivityLog(detail.GetStringRef());
+
             if(!isWaitClose.Value)
                 Finish();
         }

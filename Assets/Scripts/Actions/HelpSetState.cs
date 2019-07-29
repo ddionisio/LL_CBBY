@@ -4,17 +4,15 @@ using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions.Game {
     [ActionCategory("Game")]
-    public class HUDNextSetShow : FsmStateAction {
-        public FsmBool isShow;
-        public FsmBool isShowIndicator;
+    public class HelpSetState : FsmStateAction {
+        public GameData.HelpState helpState;
 
         public override void Reset() {
-            isShow = false;
-            isShowIndicator = false;
+            helpState = GameData.HelpState.None;
         }
 
         public override void OnEnter() {
-            HUD.instance.NextSetShow(isShow.Value, isShowIndicator.Value);
+            GameData.instance.helpState = helpState;
             Finish();
         }
     }

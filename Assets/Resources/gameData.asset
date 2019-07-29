@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: gameData
   m_EditorClassIdentifier: 
   caseNumber: 111007
-  departmentNameTextRef: 
+  departmentNameTextRef: department_name
   tagActivityPopUp: ActivityPopUp
   captureRenderTexture: {fileID: 8400000, guid: 0f156ba2600d84940a3bd28806b8a88e,
     type: 2}
   captureCount: 4
   captureTagPOIs: CapturePOIs
   captureAngleRange:
-    min: 10
+    min: 12
     max: 35
   captureScoreValue: 1000
   pcVerifyScoreValue: 500

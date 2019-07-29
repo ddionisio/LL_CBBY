@@ -13,6 +13,8 @@ public class CameraDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     [Header("Display")]
     public GameObject idleActiveGO;
+    public GameObject hideOnDragGO;
+    public GameObject clickInstructGO;
 
     private Camera mCamera;
 
@@ -31,6 +33,10 @@ public class CameraDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     void OnEnable() {
         if(idleActiveGO) idleActiveGO.SetActive(true);
+
+        if(hideOnDragGO) hideOnDragGO.SetActive(true);
+
+        if(clickInstructGO) clickInstructGO.SetActive(true);
     }
 
     void OnDisable() {
@@ -52,7 +58,9 @@ public class CameraDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         mCurForward = mCamera.transform.forward;
 
         if(idleActiveGO) idleActiveGO.SetActive(false);
-                
+
+        if(hideOnDragGO) hideOnDragGO.SetActive(false);
+
         mIsDragging = true;
 
         if(mCamRout == null)

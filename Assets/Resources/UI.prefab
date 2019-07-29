@@ -44059,7 +44059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.042, g: 0.0252, b: 0.0399, a: 0.63529414}
+  m_Color: {r: 0.042, g: 0.0252, b: 0.0399, a: 0.79607844}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -49278,7 +49278,7 @@ MonoBehaviour:
   portraitResize: 0
   nameLabel: {fileID: 0}
   textLabel: {fileID: 945956476499776215}
-  textCharPerSecond: 0.05
+  textCharPerSecond: 0.03
   textProcessActiveGO: {fileID: 6965796575171493706}
   textProcessFinishGO: {fileID: 2621173398088667116}
   nextDelay: 0.4
@@ -51139,6 +51139,7 @@ MonoBehaviour:
   _exclusive: 0
   lockedItemTitle: ?????
   lockedItemDesc: ??????????
+  flaggedReqCount: 3
   confirmModal: confirm
   confirmTitleRef: digital_investigation_report
   confirmDescRef: digital_investigation_report_confirm

@@ -19,6 +19,17 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         Count
     }
 
+    public enum HelpState {
+        None,
+
+        PreInvestigateLogin,
+        PreInvestigateBriefing,
+
+        InvestigateCameraInstruction,
+
+        InvestigateComputerPower,
+    }
+
     public class CaptureInfo {
         public Texture2D texture;
         public Vector3 forward;
@@ -198,6 +209,8 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     //digital investigation
     public int digitalReportScore { get; private set; }
+
+    public HelpState helpState { get; set; }
 
     public event System.Action interactModeChanged;
 

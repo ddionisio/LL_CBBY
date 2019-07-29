@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ActivityPopUp
   - CapturePOIs
+  - CameraDragger
   layers:
   - Default
   - TransparentFX
