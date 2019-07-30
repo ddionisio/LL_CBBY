@@ -240,6 +240,30 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     private const string malwareCheckFormat = "malware_checked_{0}";
 
+    public int GetFullScore() {
+        int photo = captureScoreValue;
+        int pcVerify = pcVerifyScoreValue * 3;
+        int volatileAcq = mVolatileAcquisitions.Count * volatileScoreValue;
+
+        int deviceAcq = 0;
+        for(int i = 0; i < mAcquisitions.Count; i++) {
+            var itm = mAcquisitions[i];
+
+            if(itm.item.isValid)
+                deviceAcq += deviceAcquisitionScoreValue;
+        }
+
+        int digitalReport = 0;
+        for(int i = 0; i < digitalReportFlaggedItems.Length; i++) {
+            var itm = digitalReportFlaggedItems[i];
+            digitalReport += digitalReportScoreValue;
+            if(itm.malwareData)
+                digitalReport += digitalReportScoreValue;
+        }
+
+        return photo + pcVerify + volatileAcq + deviceAcq + digitalReport;
+    }
+
     public void UpdateDigitalReportScore() {
         digitalReportScore = 0;
 
@@ -298,11 +322,11 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
 
     public void UpdateCaptureScore() {
         var capturePOIsGO = GameObject.FindGameObjectWithTag(captureTagPOIs);
-
-        capturePercent = 0f;
-        captureScore = 0;
-
+                
         if(capturePOIsGO) {
+            capturePercent = 0f;
+            captureScore = 0;
+
             var cam = Camera.main;
             var camT = cam.transform;
 

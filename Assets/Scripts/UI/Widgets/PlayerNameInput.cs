@@ -15,6 +15,7 @@ public class PlayerNameInput : MonoBehaviour {
     void OnEnable() {
         //initialize strings
         nameInput.text = GameData.instance.playerName;
+        initialText.text = GameData.instance.playerInitial;
         nameInput.interactable = true;
 
         nameInput.ActivateInputField();

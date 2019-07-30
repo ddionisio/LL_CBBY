@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DigitalInvestigationReportModal : M8.ModalController, M8.IModalPush {
+    public const string parmDisableProceed = "disableProceed";
+
     [Header("Data")]
     public string lockedItemTitle = "?????";
     public string lockedItemDesc = "??????????";
@@ -29,6 +31,8 @@ public class DigitalInvestigationReportModal : M8.ModalController, M8.IModalPush
 
     public Transform contentRoot;
     public ScrollRect scroller;
+
+    public GameObject proceedButtonGO;
 
     [Header("Signal Invoke")]
     public M8.Signal signalInvokeProceed;
@@ -64,6 +68,13 @@ public class DigitalInvestigationReportModal : M8.ModalController, M8.IModalPush
 
     void M8.IModalPush.Push(M8.GenericParams parms) {
         var reportItems = GameData.instance.digitalReportFlaggedItems;
+
+        bool isProceedDisable = false;
+
+        if(parms != null) {
+            if(parms.ContainsKey(parmDisableProceed))
+                isProceedDisable = parms.GetValue<bool>(parmDisableProceed);
+        }
 
         //setup items
         if(mItems == null) {
@@ -131,6 +142,8 @@ public class DigitalInvestigationReportModal : M8.ModalController, M8.IModalPush
         pointsText.text = GameData.instance.digitalReportScore.ToString();
 
         scroller.normalizedPosition = new Vector2(0f, 1f);
+
+        proceedButtonGO.SetActive(!isProceedDisable);
     }
 
     void Awake() {
