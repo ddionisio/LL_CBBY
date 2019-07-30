@@ -62,7 +62,7 @@ public class DeviceAcquisitionResultModal : M8.ModalController, M8.IModalPush {
 
         item.idText.text = device.GetLabel();
         item.descText.text = device.GetName();
-        item.valueText.text = (device.item.isValid ? GameData.instance.deviceAcquisitionScoreValue : GameData.instance.deviceAcquisitionScorePenaltyValue).ToString();
+        item.valueText.text = (device.item.isValid ? GameData.instance.deviceAcquisitionScoreValue : -GameData.instance.deviceAcquisitionScorePenaltyValue).ToString();
 
         item.gameObject.SetActive(true);
 

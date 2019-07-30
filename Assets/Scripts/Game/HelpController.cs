@@ -19,8 +19,17 @@ public class HelpController : MonoBehaviour {
     [M8.Localize]
     public string volatileDataGather;
 
+    [Header("Investigation Lab")]
+    [M8.Localize]
+    public string cloneDrive;
+
+    [M8.Localize]
+    public string[] dataInvestigate;
+
     [Header("Signal Listen")]
     public M8.Signal signalListenExecute;
+
+    private int mCurIndex;
 
     void OnDisable() {
         signalListenExecute.callback -= OnSignalExecute;
@@ -66,10 +75,28 @@ public class HelpController : MonoBehaviour {
             case GameData.HelpState.DeviceGather:
                 ModalDialog.Open(null, computerPowerCheck, OnDialogNextClose);
                 break;
+
+            case GameData.HelpState.CloneDrive:
+                ModalDialog.Open(null, cloneDrive, OnDialogNextClose);
+                break;
+
+            case GameData.HelpState.DataInvestigate:
+                mCurIndex = 0;
+                ModalDialog.Open(null, dataInvestigate[mCurIndex], OnDialogNextDataInvestigate);
+                break;
         }
     }
 
     void OnDialogNextClose() {
         ModalDialog.CloseGeneric();
+    }
+
+    void OnDialogNextDataInvestigate() {
+        mCurIndex++;
+
+        if(mCurIndex == dataInvestigate.Length)
+            ModalDialog.CloseGeneric();
+        else
+            ModalDialog.Open(null, dataInvestigate[mCurIndex], OnDialogNextDataInvestigate);
     }
 }

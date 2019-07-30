@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: flagged_music_player_zip
   m_EditorClassIdentifier: 
   key: music_player.zip
+  reportTextRef: flagged_music_player_zip_desc
   keyword: {fileID: 11400000, guid: 1f3c6c0de1a2d4f4d8d1de12ed4e9cef, type: 2}
+  malwareData: {fileID: 0}

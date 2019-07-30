@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: flagged_xkdc_exe_in_file
   m_EditorClassIdentifier: 
   key: xkdc.exe
+  reportTextRef: flagged_xkdc_exe_in_file_desc
   keyword: {fileID: 11400000, guid: 76acf8491c0c5d94ebe6e417d3627cd3, type: 2}
+  malwareData: {fileID: 0}

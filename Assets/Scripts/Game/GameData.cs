@@ -32,6 +32,10 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         VolatileDataGather,
 
         DeviceGather,
+
+        CloneDrive,
+
+        DataInvestigate,
     }
 
     public class CaptureInfo {
@@ -435,6 +439,8 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
                 int diff = Mathf.Abs(orderInd - ind);
 
                 score = volatileScoreValue - (diff * volatileScorePenaltyValue);
+                if(score < 0)
+                    score = 0;
             }
 
             //add
@@ -527,6 +533,10 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         mAcquisitions = new List<DeviceAcquisition>();
         mAcquisitionCurIndex = 0;
         mAcquisitionCurSubIndex = 0;
+
+        mSearchKeywords = new List<SearchKeywordData>();
+
+        mActivityLogs = new List<ActivityLogItem>();
     }
 
     private void InitPlayerName() {

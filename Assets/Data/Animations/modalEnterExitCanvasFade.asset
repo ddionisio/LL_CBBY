@@ -19,12 +19,12 @@ MonoBehaviour:
     numLoop: 1
     loopMode: 0
     loopBackToFrame: 0
-    trackCounter: 3
+    trackCounter: 4
     groupCounter: 0
     rootGroup:
       group_name: 
       group_id: 0
-      elements: 0200000003000000
+      elements: 020000000300000004000000
       foldout: 1
     groupValues: []
   - name: exit
@@ -33,12 +33,12 @@ MonoBehaviour:
     numLoop: 1
     loopMode: 0
     loopBackToFrame: 0
-    trackCounter: 3
+    trackCounter: 4
     groupCounter: 0
     rootGroup:
       group_name: 
       group_id: 0
-      elements: 0200000003000000
+      elements: 020000000300000004000000
       foldout: 1
     groupValues: []
   serializeData:
@@ -75,6 +75,16 @@ MonoBehaviour:
       componentName: CanvasGroup
       fieldName: 
       propertyName: interactable
+    - id: 4
+      name: Track3
+      foldout: 1
+      _targetPath: _back
+      valueType: 6
+      obj: {fileID: 0}
+      component: {fileID: 0}
+      componentName: Image
+      fieldName: 
+      propertyName: color
     - id: 2
       name: Track1
       foldout: 1
@@ -95,6 +105,16 @@ MonoBehaviour:
       componentName: CanvasGroup
       fieldName: 
       propertyName: interactable
+    - id: 4
+      name: Track3
+      foldout: 1
+      _targetPath: _back
+      valueType: 6
+      obj: {fileID: 0}
+      component: {fileID: 0}
+      componentName: Image
+      fieldName: 
+      propertyName: color
     _propertyKeys:
     - version: 2
       interp: 1
@@ -151,6 +171,30 @@ MonoBehaviour:
       amplitude: 0
       period: 0
       customEase: []
+      endFrame: 5
+      val: 0
+      valString: 
+      valObj: {fileID: 0}
+      vect4: {x: 0, y: 0, z: 0, w: 0}
+    - version: 2
+      interp: 1
+      frame: 5
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      endFrame: -1
+      val: 0
+      valString: 
+      valObj: {fileID: 0}
+      vect4: {x: 0, y: 0, z: 0, w: 0.49803922}
+    - version: 2
+      interp: 1
+      frame: 1
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
       endFrame: 10
       val: 1
       valString: 
@@ -180,6 +224,30 @@ MonoBehaviour:
       valString: 
       valObj: {fileID: 0}
       vect4: {x: 0, y: 0, z: 0, w: 0}
+    - version: 2
+      interp: 1
+      frame: 1
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      endFrame: 5
+      val: 0
+      valString: 
+      valObj: {fileID: 0}
+      vect4: {x: 0, y: 0, z: 0, w: 0.49803922}
+    - version: 2
+      interp: 1
+      frame: 5
+      easeType: 1
+      amplitude: 0
+      period: 0
+      customEase: []
+      endFrame: -1
+      val: 0
+      valString: 
+      valObj: {fileID: 0}
+      vect4: {x: 0, y: 0, z: 0, w: 0}
     _rotationEulerTracks: []
     _rotationEulerKeys: []
     _rotationTracks: []
@@ -202,5 +270,11 @@ MonoBehaviour:
       keyIndices: 0400000005000000
     - type: 7
       index: 3
-      keyIndices: 06000000
-    _takeTrackCounts: 0200000002000000
+      keyIndices: 0600000007000000
+    - type: 7
+      index: 4
+      keyIndices: 08000000
+    - type: 7
+      index: 5
+      keyIndices: 090000000a000000
+    _takeTrackCounts: 0300000003000000

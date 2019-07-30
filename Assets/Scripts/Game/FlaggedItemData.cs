@@ -33,12 +33,7 @@ public class FlaggedItemData : ScriptableObject {
 
     private string sceneVarKey {
         get {
-            if(string.IsNullOrEmpty(mSceneVarKey))
-                mSceneVarKey = "flagged_" + key;
-
-            return mSceneVarKey;
+            return "flagged_" + name;
         }
     }
-
-    private string mSceneVarKey;
 }

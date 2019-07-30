@@ -77,11 +77,15 @@ public class DigitalInvestigationReportModal : M8.ModalController, M8.IModalPush
 
             mItems = new ChainOfCustodyItemWidget[reportItems.Length + malwareCount];
 
-            var item = Instantiate(itemTemplate);
-            item.transform.SetParent(contentRoot, false);
-            item.transform.SetAsLastSibling();
+            for(int i = 0; i < mItems.Length; i++) {
+                var item = Instantiate(itemTemplate);
+                item.transform.SetParent(contentRoot, false);
+                item.transform.SetAsLastSibling();
 
-            item.gameObject.SetActive(true);
+                item.gameObject.SetActive(true);
+
+                mItems[i] = item;
+            }
         }
 
         //fill item information

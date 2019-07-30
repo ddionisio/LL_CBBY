@@ -10,11 +10,20 @@ public class ChainOfCustodyModal : M8.ModalController, M8.IModalPush {
     public const string parmPurposeString = "purpose";
     public const string parmItems = "items"; //DeviceAcquisition[]
 
+    [Header("Data")]
+    [M8.Localize]
+    public string dateFormatRef;
+    [M8.Localize]
+    public string caseFormatRef;
+    [M8.Localize]
+    public string departmentFormatRef;
+
     [Header("UI")]
     public ChainOfCustodyItemWidget itemTemplate;
 
     public Text dateTimeText;
     public Text caseNumText;
+    public Text departmentText;
     public Text releasedByText;
     public Text receivedByText;
     public Text purposeText;
@@ -26,8 +35,6 @@ public class ChainOfCustodyModal : M8.ModalController, M8.IModalPush {
     private List<ChainOfCustodyItemWidget> mItemsCache = new List<ChainOfCustodyItemWidget>();
 
     void M8.IModalPush.Push(M8.GenericParams parms) {
-        caseNumText.text = GameData.instance.caseNumber.ToString();
-
         bool isDateApply = false;
         string releasedBy = null;
         string receivedBy = null;
@@ -53,8 +60,13 @@ public class ChainOfCustodyModal : M8.ModalController, M8.IModalPush {
 
         if(isDateApply) {
             var dateDat = System.DateTime.Now;
-            dateTimeText.text = dateDat.ToString("g", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+            var dateString = dateDat.ToString("g", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+            dateTimeText.text = string.Format(M8.Localize.Get(dateFormatRef), dateString);
         }
+
+        caseNumText.text = string.Format(M8.Localize.Get(caseFormatRef), GameData.instance.caseNumber.ToString());
+
+        departmentText.text = string.Format(M8.Localize.Get(departmentFormatRef), M8.Localize.Get(GameData.instance.departmentNameTextRef));
 
         if(!string.IsNullOrEmpty(releasedBy))
             releasedByText.text = releasedBy;

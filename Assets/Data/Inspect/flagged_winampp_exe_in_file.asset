@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: flagged_winampp_exe_in_file
   m_EditorClassIdentifier: 
   key: winampp.exe
+  reportTextRef: flagged_winampp_exe_in_file_desc
   keyword: {fileID: 11400000, guid: fe449a276c7bf8145b726102eb4d4404, type: 2}
   malwareData: {fileID: 0}

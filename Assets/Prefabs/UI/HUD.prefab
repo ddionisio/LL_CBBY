@@ -1450,6 +1450,12 @@ MonoBehaviour:
   tagCameraDrag: CameraDragger
   computerPowerCheck: verify_computer_power_2
   volatileDataGather: help_volatile_gather
+  cloneDrive: help_hdd_clone
+  dataInvestigate:
+  - help_data_investigate_1
+  - help_data_investigate_2
+  - help_data_investigate_3
+  - help_data_investigate_4
   signalListenExecute: {fileID: 11400000, guid: 8725fb1ca6738e34f8fc05c0c418efff,
     type: 2}
 --- !u!223 &3652687520366297676

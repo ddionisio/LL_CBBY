@@ -25,14 +25,9 @@ public class SearchKeywordData : ScriptableObject, IComparer, IComparer<SearchKe
 
         private string sceneVarKey {
             get {
-                if(string.IsNullOrEmpty(mSceneVarKey))
-                    mSceneVarKey = "keyword_" + text;
-
-                return mSceneVarKey;
+                return "keyword_" + text;
             }
         }
-
-        private string mSceneVarKey;
 
         public bool IsSearchMatch(SearchType searchType) {
             for(int i = 0; i < searchTypes.Length; i++) {

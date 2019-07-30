@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: flagged_IP
   m_EditorClassIdentifier: 
   key: 240.1.2.3
+  reportTextRef: flagged_IP_desc
   keyword: {fileID: 11400000, guid: b2fc2095eb4d8d4468710828c852216a, type: 2}
+  malwareData: {fileID: 0}
