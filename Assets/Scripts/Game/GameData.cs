@@ -28,6 +28,10 @@ public class GameData : M8.SingletonScriptableObject<GameData> {
         InvestigateCameraInstruction,
 
         InvestigateComputerPower,
+
+        VolatileDataGather,
+
+        DeviceGather,
     }
 
     public class CaptureInfo {

@@ -16,6 +16,9 @@ public class HelpController : MonoBehaviour {
     [M8.Localize]
     public string computerPowerCheck;
 
+    [M8.Localize]
+    public string volatileDataGather;
+
     [Header("Signal Listen")]
     public M8.Signal signalListenExecute;
 
@@ -53,6 +56,14 @@ public class HelpController : MonoBehaviour {
                 break;
 
             case GameData.HelpState.InvestigateComputerPower:
+                ModalDialog.Open(null, computerPowerCheck, OnDialogNextClose);
+                break;
+
+            case GameData.HelpState.VolatileDataGather:
+                ModalDialog.Open(null, volatileDataGather, OnDialogNextClose);
+                break;
+
+            case GameData.HelpState.DeviceGather:
                 ModalDialog.Open(null, computerPowerCheck, OnDialogNextClose);
                 break;
         }

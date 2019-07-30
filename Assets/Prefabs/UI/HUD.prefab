@@ -1449,6 +1449,7 @@ MonoBehaviour:
   preInvestigateBriefing: help_preinvestigate_2
   tagCameraDrag: CameraDragger
   computerPowerCheck: verify_computer_power_2
+  volatileDataGather: help_volatile_gather
   signalListenExecute: {fileID: 11400000, guid: 8725fb1ca6738e34f8fc05c0c418efff,
     type: 2}
 --- !u!223 &3652687520366297676
