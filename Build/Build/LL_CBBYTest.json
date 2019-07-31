@@ -1,0 +1,16 @@
+{
+"companyName": "Renegadeware",
+"productName": "Cybrary01",
+"productVersion": "1.0.0",
+"dataUrl": "LL_CBBYTest.data.unityweb",
+"wasmCodeUrl": "LL_CBBYTest.wasm.code.unityweb",
+"wasmFrameworkUrl": "LL_CBBYTest.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.1.11f1"
+}
